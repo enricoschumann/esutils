@@ -1,9 +1,10 @@
 Package: esTools
 Type: Package
 Title: esTools
-Version: 0.0-1
-Date: 2014-06-30
+Version: 0.0-3
+Date: 2014-07-31
 Author: Enrico Schumann
 Maintainer: Enrico Schumann <es@enrico.schumann.net>
 Description: Various Tools.
 License: GPL-3
+SystemRequirements: ssconvert (Gnumeric), pdftotext

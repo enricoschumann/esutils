@@ -1,3 +1,15 @@
+2014-07-31  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): Version: 0.0-3
+
+	* R/pdf2txt.R (pdf2txt): added function
+
+2014-07-17  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): Version: 0.0-2
+
+	* R/nth.R: added function
+
 2014-06-30  Enrico Schumann  <es@enricoschumann.net>
 
 	* DESCRIPTION (Version): Version: 0.0-1

@@ -1,1 +1,4 @@
-exportPattern("^[[:alpha:]]+")
+export("convertDate",
+       "nth",
+       "pdf2txt",
+       "ss2csv")
