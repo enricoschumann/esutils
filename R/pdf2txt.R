@@ -1,7 +1,7 @@
 ## -*- truncate-lines: t; -*-
-## Time-stamp: <2014-07-31 09:00:34 CEST (es)>
+## Time-stamp: <2014-08-04 09:44:28 CEST (es)>
 
-pdf2txt <- function(file, out, path.exec = "pdftotext", ...) {
+pdf2txt <- function(file, out, path.exec = "pdftotext", ..., layout = TRUE) {
 
     files <- file    
     for (file in files) {
@@ -14,7 +14,7 @@ pdf2txt <- function(file, out, path.exec = "pdftotext", ...) {
         
         system(paste0(
             shQuote(path.exec),
-            " -layout ",
+            if (layout) " -layout " else "",
             shQuote(file), " ", shQuote(out)), ...)
     }
 }

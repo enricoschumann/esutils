@@ -7,7 +7,7 @@
   Pdf to Text File  
 }
 \usage{
-pdf2txt(file, out, path.exec = "pdftotext", \dots)
+pdf2txt(file, out, path.exec = "pdftotext", \dots, layout = TRUE)
 }
 
 \arguments{
@@ -23,6 +23,9 @@ pdf2txt(file, out, path.exec = "pdftotext", \dots)
   \item{\dots}{
     passed to \code{\link{system}}
 }
+  \item{layout}{
+    logical; defaults to \code{TRUE}
+}
 }
 \details{
   Relies on ssconvert, which ships with Gnumeric.
@@ -31,9 +34,7 @@ pdf2txt(file, out, path.exec = "pdftotext", \dots)
   The return value of system (0 signals success).
 }
 \references{
-  \url{http://projects.gnome.org/gnumeric/}
-
-  \url{http://projects.gnome.org/gnumeric/doc/sect-files-ssconvert.shtml}
+  \url{http://www.foolabs.com/xpdf/home.html}
 }
 \author{
   Enrico Schumann
@@ -41,5 +42,5 @@ pdf2txt(file, out, path.exec = "pdftotext", \dots)
 \examples{
 \dontrun{
 ## runs in the current directory
-ss2csv("Journal.ods")}
+pdf2txt("test.pdf")}
 }

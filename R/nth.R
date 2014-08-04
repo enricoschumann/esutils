@@ -1,5 +1,5 @@
 ## -*- truncate-lines: t; -*-
-## Time-stamp: <2014-07-17 08:40:23 CEST (es)>
+## Time-stamp: <2014-07-31 09:44:19 CEST (es)>
 
-function (x, n, first = 1) 
+nth <- function (x, n, first = 1L) 
     x[seq(first, length(x), by = n)]

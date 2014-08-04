@@ -1,4 +1,14 @@
+2014-08-04  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): Version: 0.0-4
+
+	* R/pdf2txt.R (pdf2txt): new argument 'layout'
+
 2014-07-31  Enrico Schumann  <es@enricoschumann.net>
+
+	* man/nth.Rd: added file
+
+	* DESCRIPTION (Maintainer): corrected email
 
 	* DESCRIPTION (Version): Version: 0.0-3
 
