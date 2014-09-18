@@ -14,14 +14,19 @@ convertDate(x, type, fraction = FALSE)
     numeric
   }
   \item{type}{
-    character
+    character: currently \code{"excel"} and \code{"matlab"} are supported.
   }
   \item{fraction}{
-    logical
+    logical: should fractional dates (ie, times) be used?  Default is \code{FALSE}.
   }
 }
 \details{
-  Convert 
+
+  Convert the numeric representation of a date to class
+  \code{\link{Date}}.  For Excel, only the Windows format is supported.
+  Note that dates before 1 Mar 1900 are probably wrong since Excel
+  considers 1900 a leap year (which it is not).
+
 }
 \value{
 a vector of class \code{\link{Date}}
