@@ -1,8 +1,8 @@
 Package: esTools
 Type: Package
 Title: esTools
-Version: 0.0-5
-Date: 2014-08-12
+Version: 0.1-0
+Date: 2014-09-24
 Author: Enrico Schumann
 Maintainer: Enrico Schumann <es@enricoschumann.net>
 Description: Various Tools.

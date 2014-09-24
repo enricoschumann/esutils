@@ -7,7 +7,7 @@
   Convert dates in external format (e.g., MATLAB) into Dates.
 }
 \usage{
-convertDate(x, type, fraction = FALSE)
+convertDate(x, type, fraction = FALSE, tz = "")
 }
 \arguments{
   \item{x}{
@@ -19,6 +19,10 @@ convertDate(x, type, fraction = FALSE)
   \item{fraction}{
     logical: should fractional dates (ie, times) be used?  Default is \code{FALSE}.
   }
+  \item{tz}{
+    character: if fraction is TRUE, then what time zone is to be
+    assumed?  Default is \sQuote{\code{""}}, ie, the local time zone.
+  }
 }
 \details{
 
@@ -29,7 +33,8 @@ convertDate(x, type, fraction = FALSE)
 
 }
 \value{
-a vector of class \code{\link{Date}}
+A vector of class \code{\link{Date}}, or \code{\link{POSIXct}} if
+fraction is \code{TRUE}.
 }
 \author{
   Enrico Schumann

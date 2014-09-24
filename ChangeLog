@@ -1,3 +1,14 @@
+2014-09-24  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): Version: 0.1-0
+
+	* R/convertDate.R (convertDate): 'fraction' is now also supported
+	for 'excel', and there is a new argument 'tz'
+
+2014-09-23  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/ij.R (ij_i): new functions 'ij_i' and 'i_ij'
+
 2014-09-18  Enrico Schumann  <es@enricoschumann.net>
 
 	* man/convertDate.Rd: expanded docs
