@@ -1,3 +1,17 @@
+2015-03-21  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): Version: 0.1-1
+
+	* R/here.R (here): new function
+
+2015-03-02  Enrico Schumann  <enrico.schumann@aquila-capital.com>
+
+	* R/xylabels.R (xylabels): new function
+
+2014-12-02  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/ss2csv.R (ss2csv): shQuote in/out filename
+
 2014-09-24  Enrico Schumann  <es@enricoschumann.net>
 
 	* DESCRIPTION (Version): Version: 0.1-0
