@@ -4,8 +4,4 @@ export("convertDate",
        "pdf2txt",
        "ss2csv",
        "qrequire",
-       "test",
        "here")
-S3method("aggregate", "es")
-S3method("test", "es")
-S3method("test", "default")

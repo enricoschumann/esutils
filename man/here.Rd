@@ -1,0 +1,54 @@
+\name{here}
+\alias{here}
+\title{
+  Here Documents
+}
+\description{
+  Read lines and convert into appropriate vector.
+}
+\usage{
+here(s, drop = TRUE, guess.type = TRUE)
+}
+\arguments{
+  \item{s}{
+    a string
+}
+  \item{drop}{
+    logical: drop empty first and last element
+}
+  \item{guess.type}{
+    logical
+}
+}
+\details{
+  Experimental. (Notably, the function's name may change.)
+}
+\value{
+  A vector.
+}
+\references{
+  \url{http://rosettacode.org/wiki/Here_document}
+}
+\author{
+  Enrico Schumann
+}
+\seealso{
+  \code{\link{type.convert}}
+}
+\examples{
+## numbers
+here("
+1
+2
+3
+4
+")
+
+## character
+here("
+Al
+Bob
+Carl
+David
+")
+}
