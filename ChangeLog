@@ -1,10 +1,26 @@
+2015-06-17  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): Version: 0.1-2
+
+	* NAMESPACE: added function 'TODO'
+
+2015-06-05  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/xylabels.R (xylabels): coerce 'x' and 'y' to numeric (else the
+	function would not work, for instance, with Date axes)
+	(xylabels): coordinates are now returned invisibly
+
+2015-05-15  Enrico Schumann  <es@enricoschumann.net>
+
+	* NAMESPACE: moved convertDate to package 'datetimeutils'
+
 2015-03-21  Enrico Schumann  <es@enricoschumann.net>
 
 	* DESCRIPTION (Version): Version: 0.1-1
 
 	* R/here.R (here): new function
 
-2015-03-02  Enrico Schumann  <enrico.schumann@aquila-capital.com>
+2015-03-02  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/xylabels.R (xylabels): new function
 

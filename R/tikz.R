@@ -1,5 +1,5 @@
 ## -*- truncate-lines: t; fill-column: 65; comment-column: 50; -*-
-## Time-stamp: <2014-11-05 17:22:36 CET (es)>
+## Time-stamp: <2015-06-18 06:20:23 CEST (es)>
 
 if (FALSE) {
     set.seed(2891472)
@@ -19,7 +19,7 @@ if (FALSE) {
                      paste(round(y,digits), units[2]), ")"), 
               collapse = " -- \n")
     }
-setwd("/home/es/Packages/esTools/various")
+setwd("/home/es/Packages/esutils/various")
 cat("\\begin{tikzpicture}", file = "paths.tex")
 
 cat("\\draw[line width=0.2pt,color=gray] \n", file = "paths.tex", append=TRUE)

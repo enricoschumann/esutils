@@ -1,12 +1,12 @@
-\name{esTools-package}
-\alias{esTools-package}
-\alias{esTools}
+\name{esutils-package}
+\alias{esutils-package}
+\alias{esutils}
 \docType{package}
 \title{
   Enrico Schumann's Tools
 }
 \description{
-  Tools.
+  Various tools.
 }
 \details{
   Tools.

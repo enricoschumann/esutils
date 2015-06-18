@@ -1,10 +1,11 @@
 localTesting <- TRUE
+pgk <- "esutils"
 if (require("RUnit", quietly = TRUE)) {
-    require("esTools")
+    require(pkg)
     if (localTesting)
-        path <- "~/Packages/esTools/inst/unitTests" else
-    path <- system.file("unitTests", package = "esTools")
-    myTestSuite <- defineTestSuite("esTools",
+        path <- paste0("~/Packages/", pkg, "/inst/unitTests" else
+    path <- system.file("unitTests", package = pkg)
+    myTestSuite <- defineTestSuite(pkg,
                                    dirs = path,
                                    testFileRegexp = "ut_.*")
     stopifnot(isValidTestSuite(myTestSuite))
