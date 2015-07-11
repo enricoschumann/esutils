@@ -7,5 +7,4 @@ export(
     "pdf2txt",
     "qrequire",
     "ss2csv",
-    "xylabels"
-    )
+    "xy_text")

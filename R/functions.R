@@ -24,12 +24,10 @@ i_ij <- function(index, nrow) {
     cbind(i,j)
 }
 
-map01 <- function(x, old.min = min(x), old.max = max(x), new.min = 0, new.max = 1) {
-    if (old.min == old.max || new.min == new.max)
-        stop("check limits")
-    new.range <- new.max - new.min
-    old.range <- old.max - old.min
-    (new.range * x + new.min * old.max - new.max * old.min)/old.range
+map01 <- function(x, min = 0, max = 1, min_ = min(x), max_ = max(x)) {
+    new.range <- max - min
+    old.range <- max_ - min_
+    (new.range * x + min * max_ - max * min_)/old.range
 }
 
 nth <- function (x, n, first = 1L)
@@ -84,7 +82,7 @@ ss2csv <- function(file, out, path.exec = "ssconvert", ...) {
     }
 }
 
-xylabels <- function(x,y,labels, ...) {
+xy_text <- function(x,y,labels, ...) {
     d <- par()$usr
     xx <- (d[2] - d[1]) * as.numeric(x) + d[1]
     yy <- (d[4] - d[3]) * as.numeric(y) + d[3]
