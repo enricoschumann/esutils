@@ -1,6 +1,17 @@
+2015-12-09  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/news_to_rss.R (news_to_rss): new function
+
+2015-10-08  Enrico Schumann  <es@enricoschumann.net>
+
+	* man/map01.Rd: renamed 'min_', 'max_' to 'oman', 'omin'
+
 2015-07-11  Enrico Schumann  <es@enricoschumann.net>
 
 	* DESCRIPTION (Version): Version: 0.1-3
+
+	* R/functions.R (xy_text): renamed function 'xylabels' to
+	'xy_text'
 
 	* R/functions.R (map01): renamed/rearranged arguments
 

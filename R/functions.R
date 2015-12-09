@@ -13,7 +13,7 @@ here <- function(s, drop = TRUE, guess.type = TRUE) {
 ij_i <- function(i, j, nrow) {
     if (is.matrix(i))
         i[ ,1L] + (j[ ,2L] - 1) * nrow
-    else        
+    else
         i + (j - 1) *nrow
 }
 
@@ -24,10 +24,10 @@ i_ij <- function(index, nrow) {
     cbind(i,j)
 }
 
-map01 <- function(x, min = 0, max = 1, min_ = min(x), max_ = max(x)) {
+map01 <- function(x, min = 0, max = 1, omin = min(x), omax = max(x)) {
     new.range <- max - min
-    old.range <- max_ - min_
-    (new.range * x + min * max_ - max * min_)/old.range
+    old.range <- omax - omin
+    (new.range * x + min * omax - max * omin)/old.range
 }
 
 nth <- function (x, n, first = 1L)
@@ -36,15 +36,15 @@ nth <- function (x, n, first = 1L)
 
 pdf2txt <- function(file, out, path.exec = "pdftotext", ..., layout = TRUE) {
 
-    files <- file    
+    files <- file
     for (file in files) {
         basename <- unlist(strsplit(file, "[.][0-9a-zA-Z]*$"))
-        
+
         if (missing(out))
             out <- paste0(basename, ".txt") else
         if (!is.na(fi <- file.info(out)$isdir) && fi)
             out <- file.path(out, paste0(basename, ".txt"))
-        
+
         system(paste0(
             shQuote(path.exec),
             if (layout) " -layout " else "",
@@ -55,7 +55,7 @@ pdf2txt <- function(file, out, path.exec = "pdftotext", ..., layout = TRUE) {
 qrequire <- function(package, lib.loc = NULL, quietly = TRUE,
                      warn.conflicts = TRUE, character.only = FALSE,
                      file = tempfile()) {
-    if (!character.only) 
+    if (!character.only)
         package <- as.character(substitute(package))
     (suppressPackageStartupMessages(
         capture.output(ans <- require(package, lib.loc, quietly,
@@ -66,15 +66,15 @@ qrequire <- function(package, lib.loc = NULL, quietly = TRUE,
 
 ss2csv <- function(file, out, path.exec = "ssconvert", ...) {
 
-    files <- file    
+    files <- file
     for (file in files) {
         basename <- unlist(strsplit(file, "[.][0-9a-zA-Z]*$"))
-        
+
         if (missing(out))
             out <- paste0(basename, "_%n.csv") else
         if (!is.na(fi <- file.info(out)$isdir) && fi)
             out <- file.path(out, paste0(basename, "_%n.csv"))
-        
+
         system(paste0(
             shQuote(path.exec),
             " -T Gnumeric_stf:stf_csv -S ",
@@ -86,7 +86,7 @@ xy_text <- function(x,y,labels, ...) {
     d <- par()$usr
     xx <- (d[2] - d[1]) * as.numeric(x) + d[1]
     yy <- (d[4] - d[3]) * as.numeric(y) + d[3]
-    
+
     text(x = xx, y = yy, labels = labels, ...)
     invisible(c(xx,yy))
 }
@@ -137,7 +137,7 @@ TODO <- function(path,
             message("\n** ", f, ": ", paste(ilines, collapse = ", "))
             print(lines[rep(ilines, each = length(offset))  + offset], quote = FALSE)
         }
-    }    
+    }
 }
 
 ## TODO("~/Aquila")
@@ -156,12 +156,12 @@ matrixImage <- function(X, row.labels, col.labels, cex.axis = 1, grid = FALSE) {
         col.labels <- if (is.null(colnames(X)))
                           rev(seq_len(mr)) else colnames(X)
     }
-    
+
     rsq <- seq_along(row.labels)
     irow <- rsq[match(pretty(rsq, n = 10), rsq, nomatch = 0)]
     csq <- seq_along(col.labels)
     icol <- csq[match(pretty(csq, n = 10), csq, nomatch = 0)]
-    
+
     image(1:mr, 1:mc, m, col = c("white", "blue"),
           xaxt = "n", yaxt = "n", xlab = "", ylab = "")
     axis(1, at = seq_len(mr)[icol], labels = col.labels[icol],

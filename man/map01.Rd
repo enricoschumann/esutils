@@ -8,7 +8,7 @@
   specified range (per default 0 to 1).
 }
 \usage{
-map01(x, min = 0, max = 1, min_ = min(x), max_ = max(x))
+map01(x, min = 0, max = 1, omin = min(x), omax = max(x))
 }
 \arguments{
   \item{x}{
@@ -20,10 +20,10 @@ map01(x, min = 0, max = 1, min_ = min(x), max_ = max(x))
   \item{max}{
     a numeric vector of length one
 }
-  \item{min_}{
+  \item{omin}{
     a numeric vector of length one
 }
-  \item{max_}{
+  \item{omax}{
     a numeric vector of length one
 }
 }
