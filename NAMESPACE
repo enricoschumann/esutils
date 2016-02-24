@@ -1,5 +1,4 @@
 import("stats")
-## importFrom("tools", ".news_reader_default")
 export(
     "TODO",
     "here",
