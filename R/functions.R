@@ -122,7 +122,7 @@ xy_text <- function(x,y,labels, ...) {
 TODO <- function(path,
                  pattern = "[.]R$|[.]org$|[.]Rnw$",
                  recursive = TRUE,
-                 lines.above = 1, lines.below = 2) {
+                 lines.above = 0, lines.below = 0) {
 
     files <- list.files(path = path,
                         pattern = paste(c("[.]R$", "[.]org$", "[.]Rnw$"),
@@ -133,14 +133,20 @@ TODO <- function(path,
     res <- character(0L)
     offset <- (-lines.above):lines.below
     for (f in files) {
-        if (any(ilines <- grep("TODO", lines <- readLines(f), useBytes = TRUE))) {
-            message("\n** ", f, ": ", paste(ilines, collapse = ", "))
-            print(lines[rep(ilines, each = length(offset))  + offset], quote = FALSE)
+        lines <- readLines(f, warn = FALSE)
+        if (any(ilines <- grep("TODO", lines, useBytes = TRUE))) {
+            ## browser()
+            cat("\n=== ", f, " : ", 
+                paste(ilines, collapse = ", "), "\n", sep = "",
+                paste(lines[rep(ilines, each = length(offset))  + offset],
+                      collapse = "\n"),
+                "\n===\n")
+            cat("\n\n")
+            
         }
     }
+    invisible(NULL)
 }
-
-## TODO("~/Aquila")
 
 matrixImage <- function(X, row.labels, col.labels, cex.axis = 1, grid = FALSE) {
     ## TODO add grid
