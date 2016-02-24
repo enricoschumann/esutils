@@ -8,3 +8,4 @@ Maintainer: Enrico Schumann <es@enricoschumann.net>
 Description: Various Tools.
 License: GPL (>=2)
 SystemRequirements: ssconvert (Gnumeric), pdftotext (Xpdf)
+Imports: tools
