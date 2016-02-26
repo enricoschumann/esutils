@@ -2,6 +2,11 @@
 
         * DESCRIPTION (Version): 0.1-4
 
+	* R/news_to_rss.R (news_to_rss): function has been moved to
+	NEWSRSS package
+
+2015-12-09  Enrico Schumann  <es@enricoschumann.net>
+
 	* R/news_to_rss.R (news_to_rss): new function
 
 2015-10-08  Enrico Schumann  <es@enricoschumann.net>
