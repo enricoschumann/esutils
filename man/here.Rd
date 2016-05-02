@@ -7,7 +7,7 @@
   Read lines and convert into appropriate vector.
 }
 \usage{
-here(s, drop = TRUE, guess.type = TRUE)
+here(s, drop = TRUE, guess.type = TRUE, sep = NULL, header = TRUE, \dots)
 }
 \arguments{
   \item{s}{
@@ -18,6 +18,15 @@ here(s, drop = TRUE, guess.type = TRUE)
 }
   \item{guess.type}{
     logical
+}
+  \item{sep}{
+    NULL or character
+}
+  \item{header}{
+    logical
+}
+  \item{\dots}{
+    named arguments to be passed to \code{\link[utils]{read.table}}
 }
 }
 \details{

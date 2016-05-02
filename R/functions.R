@@ -1,13 +1,20 @@
 ## -*- truncate-lines: t; fill-column: 65; comment-column: 50; -*-
 
-here <- function(s, drop = TRUE, guess.type = TRUE) {
-    ans <- readLines(textConnection(s))
-    if (drop && ans[len <- length(ans)] == "")
-        ans <- ans[-len]
-    if (drop && ans[1L] == "")
-        ans <- ans[-1L]
-    if (guess.type)
-        type.convert(ans, as.is = TRUE) else ans
+here <- function(s, drop = TRUE, guess.type = TRUE,
+                 sep = NULL, header = TRUE, ...) {
+    if (is.null(sep)) {
+        ans <- readLines(textConnection(s))
+        if (drop && ans[len <- length(ans)] == "")
+            ans <- ans[-len]
+        if (drop && ans[1L] == "")
+            ans <- ans[-1L]
+        if (guess.type)
+            type.convert(ans, as.is = TRUE)
+        else
+            ans
+    } else
+        read.table(textConnection(s),
+                   header = header, sep = sep, ...)    
 }
 
 ij_i <- function(i, j, nrow) {
