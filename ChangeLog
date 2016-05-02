@@ -1,5 +1,7 @@
 2016-05-02  Enrico Schumann  <es@enricoschumann.net>
 
+        * DESCRIPTION (Version): 0.1-6
+
 	* R/functions.R (here): new arguments 'sep' and
 	'header': with 'sep' specified, the lines read are
 	interpreted as a table (data.frame)
