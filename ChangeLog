@@ -1,3 +1,10 @@
+2016-08-03  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (char2num): add function
+
+	* R/functions.R (fun_names): add function, from
+	https://stat.ethz.ch/pipermail/r-package-devel/2016q3/000959.html
+
 2016-05-02  Enrico Schumann  <es@enricoschumann.net>
 
         * DESCRIPTION (Version): 0.1-6

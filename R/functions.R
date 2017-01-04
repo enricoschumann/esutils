@@ -2,19 +2,20 @@
 
 here <- function(s, drop = TRUE, guess.type = TRUE,
                  sep = NULL, header = TRUE, ...) {
-    if (is.null(sep)) {
-        ans <- readLines(textConnection(s))
-        if (drop && ans[len <- length(ans)] == "")
-            ans <- ans[-len]
-        if (drop && ans[1L] == "")
-            ans <- ans[-1L]
-        if (guess.type)
-            type.convert(ans, as.is = TRUE)
-        else
-            ans
-    } else
-        read.table(textConnection(s),
-                   header = header, sep = sep, ...)    
+    ans <- readLines(textConnection(s))
+    
+    if (drop && ans[len <- length(ans)] == "")
+        ans <- ans[-len]
+    if (drop && ans[1L] == "")
+        ans <- ans[-1L]
+    }
+
+    if (is.null(sep) && guess.type)
+        ans <- type.convert(ans, as.is = TRUE)
+    else
+        ans <- read.table(textConnection(s),
+                          header = header, sep = sep, ...)
+    ans
 }
 
 ij_i <- function(i, j, nrow) {
@@ -97,7 +98,6 @@ xy_text <- function(x,y,labels, ...) {
     text(x = xx, y = yy, labels = labels, ...)
     invisible(c(xx,yy))
 }
-
 
 ## z <- array(runif(100),dim=c(5,3))
 ## i <- 3; j <- 2
@@ -189,3 +189,64 @@ matrixImage <- function(X, row.labels, col.labels, cex.axis = 1, grid = FALSE) {
 ## rownames(xxx) <- row.labels <- letters[1:nrow(xxx)]
 ## colnames(xxx) <- col.labels <- LETTERS[1:ncol(xxx)]
 ## matrixImage(xxx)
+
+package.skeleton2 <- function(name = "anRpackage",
+                              list = character(),
+                              environment = .GlobalEnv,
+                              path = ".",
+                              force = FALSE,
+                              code_files = character()) {
+
+
+    ## .gitignore
+    ## .keywords
+    ## ChangeLog
+    ## NEWS
+    ## README.org
+    ## THANKS
+    ## TODO_<pkg>
+    ## .Rbuildignore
+
+##    package.skeleton
+    
+}
+
+fun_names <- function(dir,
+                      duplicates_only = TRUE,
+                      file_pattern = "[.][rR]$",
+                      fun_pattern = " *([^\\s]+) *<- *function.*") {
+
+    files <- dir(dir, pattern = file_pattern, full.names = TRUE)
+    ans <- data.frame(fun = character(0),
+                      file = character(0))
+    for (f in files) {
+        txt <- readLines(f)
+        fun.lines <- grepl(fun_pattern, txt)
+        
+        if (any(fun.lines)) {
+            ans <- rbind(ans,
+                         data.frame(fun = gsub(fun_pattern, "\\1",
+                                               txt[fun.lines],
+                                               perl = TRUE),
+                                    file = f,
+                                    line = which(fun.lines),
+                                    stringsAsFactors = FALSE))
+        }
+    }
+
+    ans <- ans[order(ans[["fun"]]), ]
+
+    if (duplicates_only) {
+        d <- duplicated(ans[["fun"]])
+        d0 <- match(unique(ans[["fun"]][d]), ans[["fun"]])
+        ans <- ans[sort(c(d0, which(d))),]
+    }
+
+    ans
+}
+
+## takes a string like "12.000,23" and returns 12000.23
+char2num <- function(s, dec = ",", big.mark = ".") {
+    s <- gsub(big.mark, "", s, fixed = TRUE)
+    as.numeric(sub(dec, Sys.localeconv()[["decimal_point"]], s, fixed = TRUE))
+}
