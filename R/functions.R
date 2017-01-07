@@ -250,3 +250,23 @@ char2num <- function(s, dec = ",", big.mark = ".") {
     s <- gsub(big.mark, "", s, fixed = TRUE)
     as.numeric(sub(dec, Sys.localeconv()[["decimal_point"]], s, fixed = TRUE))
 }
+
+header <- function(h, width = 55,
+                   line = "-",
+                   open = " [[ ",
+                   close = " ]] ",
+                   line.start = "## ",
+                   line.end = "") {
+
+    nc <- nchar(h)
+    left <- width - (nc + nchar(line.start) + nchar(line.end) +
+                     nchar(open) + nchar(close))
+    lines <- character(length(h))
+    for (i in 1:length(h)) {
+        lines[i] <- paste0(rep(line, trunc(left[[i]]/2)), collapse = "")
+    }
+    paste0(line.start,
+           ifelse(left %% 2, " ", ""),
+           lines, open, h, close, lines,
+           line.end)
+}
