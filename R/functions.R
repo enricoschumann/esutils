@@ -8,7 +8,6 @@ here <- function(s, drop = TRUE, guess.type = TRUE,
         ans <- ans[-len]
     if (drop && ans[1L] == "")
         ans <- ans[-1L]
-    }
 
     if (is.null(sep) && guess.type)
         ans <- type.convert(ans, as.is = TRUE)
@@ -32,7 +31,9 @@ i_ij <- function(index, nrow) {
     cbind(i,j)
 }
 
-map01 <- function(x, min = 0, max = 1, omin = min(x), omax = max(x)) {
+map01 <- function(x, min = 0, max = 1, omin = min(x), omax = max(x), na.rm = FALSE) {
+    if (na.rm)
+        message("not yet supported")
     new.range <- max - min
     old.range <- omax - omin
     (new.range * x + min * omax - max * omin)/old.range

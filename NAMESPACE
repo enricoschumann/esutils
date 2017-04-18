@@ -1,6 +1,7 @@
 import("stats")
 export(
     "TODO",
+    "char2num",
     "header",
     "here",
     "map01",
