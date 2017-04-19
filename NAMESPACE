@@ -1,9 +1,14 @@
-import("stats")
+## import("stats")
+importFrom("graphics",
+           "axis", "image", "par", "text")
+importFrom("utils",
+           "capture.output", "read.table", "type.convert")
 export(
     "TODO",
     "char2num",
     "header",
     "here",
+    "latest_version",
     "map01",
     "nth",
     "pdf2txt",

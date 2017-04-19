@@ -121,7 +121,7 @@ xy_text <- function(x,y,labels, ...) {
 ## z[getIndex(i,j,dim(z)[1L])]
 
 
-## path <- "~/Aquila"
+## path <- "~/Documents"
 
 ## org
 ## [[file:sometextfile::NNN]]
@@ -156,7 +156,7 @@ TODO <- function(path,
     invisible(NULL)
 }
 
-matrixImage <- function(X, row.labels, col.labels, cex.axis = 1, grid = FALSE) {
+matrix_image <- function(X, row.labels, col.labels, cex.axis = 1, grid = FALSE) {
     ## TODO add grid
     par(las = 2)
     m <- abs(t(X[nrow(X):1, ]))
@@ -189,7 +189,7 @@ matrixImage <- function(X, row.labels, col.labels, cex.axis = 1, grid = FALSE) {
 ## xxx[1:2,2] <- 1
 ## rownames(xxx) <- row.labels <- letters[1:nrow(xxx)]
 ## colnames(xxx) <- col.labels <- LETTERS[1:ncol(xxx)]
-## matrixImage(xxx)
+## matrix_image(xxx)
 
 package.skeleton2 <- function(name = "anRpackage",
                               list = character(),
@@ -270,4 +270,11 @@ header <- function(h, width = 55,
            ifelse(left %% 2, " ", ""),
            lines, open, h, close, lines,
            line.end)
+}
+
+latest_version <- function(pkg, path = ".") {
+    all_p <- dir(path, pattern = paste0(pkg, ".*tar[.]gz"))
+    all_v <- gsub(".*_([0-9]+[.][0-9]+-[0-9]+)[.]tar[.]gz", "\\1", all_p)
+    all_v  <- package_version(all_v)
+    all_p[max(all_v) == all_v]
 }

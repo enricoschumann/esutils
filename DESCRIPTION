@@ -1,11 +1,11 @@
 Package: esutils
 Type: Package
 Title: esutils
-Version: 0.1-6
-Date: 2016-05-02
+Version: 0.1-7
+Date: 2017-04-19
 Author: Enrico Schumann
 Maintainer: Enrico Schumann <es@enricoschumann.net>
 Description: Various Tools.
 License: GPL (>=2)
 SystemRequirements: ssconvert (Gnumeric), pdftotext (Xpdf)
-Imports: stats
+Imports: utils, graphics

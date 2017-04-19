@@ -1,3 +1,9 @@
+2017-04-19  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): 0.1-7
+
+	* R/functions.R (latest_version): add function
+
 2017-01-07  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/functions.R (header): add function
