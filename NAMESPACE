@@ -1,4 +1,3 @@
-## import("stats")
 importFrom("graphics",
            "axis", "image", "par", "text")
 importFrom("utils",
@@ -9,6 +8,7 @@ export(
     "header",
     "here",
     "latest_version",
+    "make_tex",
     "map01",
     "nth",
     "pdf2txt",

@@ -278,3 +278,12 @@ latest_version <- function(pkg, path = ".") {
     all_v  <- package_version(all_v)
     all_p[max(all_v) == all_v]
 }
+
+make_tex <- function(fn, weaver = FALSE, encoding = "utf8") {
+    ## encoding "" is default for Sweave
+    if (weaver) {
+        require("weaver")
+        Sweave(fn, driver = weaver(), encoding = "utf8")
+    } else
+        Sweave(fn, encoding = "utf8")
+}

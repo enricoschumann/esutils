@@ -1,3 +1,9 @@
+2017-05-09  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): 0.1-8
+
+	* R/functions.R (make_tex): add function
+
 2017-04-19  Enrico Schumann  <es@enricoschumann.net>
 
 	* DESCRIPTION (Version): 0.1-7
