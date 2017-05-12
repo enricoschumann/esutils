@@ -1,3 +1,7 @@
+2017-05-10  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (make_tex): new argument 'latexmk'
+
 2017-05-09  Enrico Schumann  <es@enricoschumann.net>
 
 	* DESCRIPTION (Version): 0.1-8

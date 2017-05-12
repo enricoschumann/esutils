@@ -279,11 +279,14 @@ latest_version <- function(pkg, path = ".") {
     all_p[max(all_v) == all_v]
 }
 
-make_tex <- function(fn, weaver = FALSE, encoding = "utf8") {
+make_tex <- function(fn, weaver = FALSE, encoding = "utf8", latexmk = FALSE) {
     ## encoding "" is default for Sweave
     if (weaver) {
         require("weaver")
         Sweave(fn, driver = weaver(), encoding = "utf8")
     } else
         Sweave(fn, encoding = "utf8")
+    if (latexmk) {
+        system(paste("latexmk -lualatex", gsub("Rnw$", "tex", fn)))
+    }
 }
