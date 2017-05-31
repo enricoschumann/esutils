@@ -1,9 +1,12 @@
 importFrom("graphics",
            "axis", "image", "par", "text")
 importFrom("utils",
-           "capture.output", "read.table", "type.convert")
+           "capture.output", "read.table", "type.convert",
+           "Sweave", "browseURL")
+
 export(
     "TODO",
+    "build_pkg",
     "char2num",
     "header",
     "here",

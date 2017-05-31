@@ -1,0 +1,19 @@
+RUNIT TEST PROTOCOL -- Wed May 31 15:21:49 2017 
+*********************************************** 
+Number of test functions: 0 
+Number of errors: 0 
+Number of failures: 0 
+
+ 
+1 Test Suite : 
+esutils - 0 test functions, 0 errors, 0 failures
+
+
+
+Details 
+*************************** 
+Test Suite: esutils 
+Test function regexp: ^test.+ 
+Test file regexp: ut_.* 
+Involved directory: 
+~/Packages/esutils/inst/unitTests 

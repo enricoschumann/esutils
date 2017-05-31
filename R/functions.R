@@ -279,14 +279,56 @@ latest_version <- function(pkg, path = ".") {
     all_p[max(all_v) == all_v]
 }
 
-make_tex <- function(fn, weaver = FALSE, encoding = "utf8", latexmk = FALSE) {
+make_tex <- function(fn, sweave = TRUE, weaver = FALSE, encoding = "utf8", latexmk = FALSE) {
     ## encoding "" is default for Sweave
-    if (weaver) {
-        require("weaver")
-        Sweave(fn, driver = weaver(), encoding = "utf8")
-    } else
-        Sweave(fn, encoding = "utf8")
-    if (latexmk) {
-        system(paste("latexmk -lualatex", gsub("Rnw$", "tex", fn)))
+    if (sweave) {
+        if (weaver) {
+            require("weaver")
+            Sweave(fn, driver = weaver(), encoding = "utf8")
+        } else
+            Sweave(fn, encoding = "utf8")
     }
+    if (latexmk)
+        system(paste("latexmk -lualatex", gsub("Rnw$", "tex", fn)))
+}
+
+build_pkg <- function(pkg, parent.dir = ".",
+                      check = FALSE,
+                      build.vignettes = TRUE,
+                      run.tests = TRUE,
+                      install = FALSE,
+                      clean = FALSE) {
+    cwd <- getwd()
+    on.exit(setwd(cwd))
+    setwd(parent.dir)
+
+    if (build.vignettes)
+        system(paste("R CMD build", pkg))
+    else
+        system(paste("R CMD build --no-build-vignettes", pkg))
+
+    if (run.tests) {
+        Sys.setenv("ES_PACKAGE_TESTING"=TRUE)
+        source(file.path(pkg, "inst", "unitTests", "runTests.R"))
+        Sys.setenv("ES_PACKAGE_TESTING"=FALSE)
+        browseURL(file.path(getwd(), pkg, "inst", "unitTests", "test_results.txt"))
+    }
+
+    if (install)
+        system(paste0("R CMD INSTALL --merge-multiarch ", esutils::latest_version(pkg)))
+
+    if (check) {
+        Sys.setenv("ES_PACKAGE_TESTING"=TRUE)
+        system(paste0("R CMD check ", esutils::latest_version(pkg)))
+        Sys.setenv("ES_PACKAGE_TESTING"=FALSE)
+        ## browseURL(file.path(getwd(), paste0(pkg, ".Rcheck"),
+        ##                     "inst", "unitTests", "test_results.txt"))
+    }
+    
+    if (clean) {
+        unlink(paste0(pkg, ".Rcheck"), TRUE, TRUE)
+        unlink(dir(pattern = paste0("^", pkg, ".*[.]tar[.]gz$")))
+    }
+
+    invisible(NULL)
 }
