@@ -297,11 +297,21 @@ build_pkg <- function(pkg, parent.dir = ".",
                       build.vignettes = TRUE,
                       run.tests = TRUE,
                       install = FALSE,
-                      clean = FALSE) {
+                      clean = FALSE,
+                      bump.version = FALSE) {
     cwd <- getwd()
     on.exit(setwd(cwd))
     setwd(parent.dir)
 
+    if (bump.version) {
+        ## TODO allow major/minor/patch
+        ## TODO update date
+        D <- readLines(paste0(pkg, "/DESCRIPTION"))
+        i <- grep("^Version: ", D)
+        v1 <- as.numeric(gsub(".*-(.*)", "\\1", D[i]))+1
+        D[i] <- gsub("(.*-).*", paste0("\\1",v1), D[i])
+        writeLines(D, paste0(pkg, "/DESCRIPTION"))
+    }
     if (build.vignettes)
         system(paste("R CMD build", pkg))
     else
@@ -309,9 +319,12 @@ build_pkg <- function(pkg, parent.dir = ".",
 
     if (run.tests) {
         Sys.setenv("ES_PACKAGE_TESTING"=TRUE)
-        source(file.path(pkg, "inst", "unitTests", "runTests.R"))
+        ans <- try(source(file.path(pkg, "inst", "unitTests", "runTests.R")), silent = TRUE)
         Sys.setenv("ES_PACKAGE_TESTING"=FALSE)
-        browseURL(file.path(getwd(), pkg, "inst", "unitTests", "test_results.txt"))
+        if (inherits(ans, "try-error"))
+            message("check is TRUE but no unit tests found")
+        else
+            try(browseURL(file.path(getwd(), pkg, "inst", "unitTests", "test_results.txt")), silent = TRUE)
     }
 
     if (install)

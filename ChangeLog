@@ -1,3 +1,8 @@
+2017-06-13  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (build_pkg): new argument
+	'bump.version'
+
 2017-05-31  Enrico Schumann  <es@enricoschumann.net>
 
 	* DESCRIPTION (Version): 0.1-9
