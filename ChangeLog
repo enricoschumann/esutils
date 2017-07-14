@@ -1,9 +1,16 @@
 2017-07-14  Enrico Schumann  <es@enricoschumann.net>
 
+	* R/functions.R (here): fixed -- 'guess.type'
+	had been ignored when a table was read (i.e.
+	when 'sep' was specified)
+
+2017-07-14  Enrico Schumann  <es@enricoschumann.net>
+
 	* DESCRIPTION (Version): 0.1-10
 
 	* R/functions.R (here): 'stringsAsFactors' is
 	now FALSE per default
+	new argument 'trim';
 
 2017-06-13  Enrico Schumann  <es@enricoschumann.net>
 

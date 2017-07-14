@@ -13,11 +13,14 @@ here <- function(s, drop = TRUE, guess.type = TRUE,
 
     if (is.null(sep) && guess.type)
         ans <- type.convert(ans, as.is = TRUE)
-    else
-        ans <- read.table(textConnection(s),
+    else {
+        ans <- read.table(text = ans,
                           header = header, sep = sep,
                           stringsAsFactors = stringsAsFactors,
-                          ...)
+                          strip.white = trim,
+                          colClasses = if (guess.type)
+                                NA else "character", ...)
+    }
     ans
 }
 
