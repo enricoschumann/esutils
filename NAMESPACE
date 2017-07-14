@@ -4,6 +4,9 @@ importFrom("utils",
            "capture.output", "read.table", "type.convert",
            "Sweave", "browseURL")
 
+importFrom("textutils",
+           "trim")
+
 export(
     "TODO",
     "build_pkg",

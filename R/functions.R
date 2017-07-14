@@ -1,7 +1,9 @@
 ## -*- truncate-lines: t; fill-column: 65; comment-column: 50; -*-
 
 here <- function(s, drop = TRUE, guess.type = TRUE,
-                 sep = NULL, header = TRUE, ...) {
+                 sep = NULL, header = TRUE,
+                 stringsAsFactors = FALSE,
+                 trim = FALSE, ...) {
     ans <- readLines(textConnection(s))
     
     if (drop && ans[len <- length(ans)] == "")
@@ -13,7 +15,9 @@ here <- function(s, drop = TRUE, guess.type = TRUE,
         ans <- type.convert(ans, as.is = TRUE)
     else
         ans <- read.table(textConnection(s),
-                          header = header, sep = sep, ...)
+                          header = header, sep = sep,
+                          stringsAsFactors = stringsAsFactors,
+                          ...)
     ans
 }
 

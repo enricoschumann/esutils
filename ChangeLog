@@ -1,3 +1,10 @@
+2017-07-14  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): 0.1-10
+
+	* R/functions.R (here): 'stringsAsFactors' is
+	now FALSE per default
+
 2017-06-13  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/functions.R (build_pkg): new argument

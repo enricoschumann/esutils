@@ -7,7 +7,8 @@
   Read lines and convert into appropriate vector.
 }
 \usage{
-here(s, drop = TRUE, guess.type = TRUE, sep = NULL, header = TRUE, \dots)
+here(s, drop = TRUE, guess.type = TRUE, sep = NULL, header = TRUE,
+     stringsAsFactors = FALSE, trim = FALSE, \dots)
 }
 \arguments{
   \item{s}{
@@ -23,6 +24,12 @@ here(s, drop = TRUE, guess.type = TRUE, sep = NULL, header = TRUE, \dots)
     NULL or character
 }
   \item{header}{
+    logical
+}
+  \item{stringsAsFactors}{
+    logical
+}
+  \item{trim}{
     logical
 }
   \item{\dots}{
