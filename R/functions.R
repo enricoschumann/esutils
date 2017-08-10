@@ -299,7 +299,7 @@ make_tex <- function(fn, sweave = TRUE, weaver = FALSE, encoding = "utf8", latex
         system(paste("latexmk -lualatex", gsub("Rnw$", "tex", fn)))
 }
 
-build_pkg <- function(pkg, parent.dir = ".",
+pkg_build <- build_pkg <- function(pkg, parent.dir = ".",
                       check = FALSE,
                       build.vignettes = TRUE,
                       run.tests = TRUE,
@@ -312,12 +312,14 @@ build_pkg <- function(pkg, parent.dir = ".",
 
     if (bump.version) {
         ## TODO allow major/minor/patch
-        ## TODO update date
-        D <- readLines(paste0(pkg, "/DESCRIPTION"))
+        D_file <- file.path(pkg, "DESCRIPTION")
+        D <- readLines(D_file)
         i <- grep("^Version: ", D)
-        v1 <- as.numeric(gsub(".*-(.*)", "\\1", D[i]))+1
-        D[i] <- gsub("(.*-).*", paste0("\\1",v1), D[i])
-        writeLines(D, paste0(pkg, "/DESCRIPTION"))
+        v1 <- as.numeric(gsub(".*-(.*)", "\\1", D[i])) + 1
+        D[i] <- gsub("(.*-).*", paste0("\\1", v1), D[i])
+        i <- grep("^Date: ", D)
+        D[i] <- paste("Date:", Sys.Date())
+        writeLines(D, D_file)
     }
     if (build.vignettes)
         system(paste("R CMD build", pkg))

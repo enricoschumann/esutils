@@ -1,4 +1,10 @@
-2017-07-14  Enrico Schumann  <es@enricoschumann.net>
+2017-08-10  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (pkg_build, build_pkg): update
+	date when bump.version is TRUE; pkg_build is
+	now an alias for build_pkg
+
+2017-07-14  Enrico Schumann  <es@penricoschumann.net>
 
 	* R/functions.R (here): fixed -- 'guess.type'
 	had been ignored when a table was read (i.e.
