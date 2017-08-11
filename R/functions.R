@@ -372,7 +372,7 @@ pkg_clean <- function(do = FALSE,
     }
     if (length(d) && do) {
         ans <- unlink(d, TRUE, TRUE)
-        cat("\n  ... removed.\n")
+        cat("\n  ... removed.\n\n")
     }
 
     d <- dir(pattern = paste0("^", pkg, ".*[.]tar[.]gz$"))
