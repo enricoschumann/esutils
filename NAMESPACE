@@ -18,6 +18,7 @@ export(
     "map01",
     "nth",
     "pdf2txt",
+    "pkg_build",
     "qrequire",
     "ss2csv",
     "xy_text")

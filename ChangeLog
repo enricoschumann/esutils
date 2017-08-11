@@ -1,3 +1,17 @@
+2017-08-11  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): 0.1-12
+
+	* R/functions.R (pkg_clean): add function
+
+2017-08-11  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): 0.1-11
+
+	* R/functions.R (make_tex): use
+	'requireNamespace("weaver")' instead of
+	'require()'
+
 2017-08-10  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/functions.R (pkg_build, build_pkg): update

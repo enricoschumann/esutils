@@ -286,15 +286,14 @@ latest_version <- function(pkg, path = ".") {
     all_p[max(all_v) == all_v]
 }
 
-make_tex <- function(fn, sweave = TRUE, weaver = FALSE, encoding = "utf8", latexmk = FALSE) {
+make_tex <- function(fn, sweave = TRUE, weaver = FALSE,
+                     encoding = "utf8", latexmk = FALSE) {
     ## encoding "" is default for Sweave
-    if (sweave) {
-        if (weaver) {
-            require("weaver")
-            Sweave(fn, driver = weaver(), encoding = "utf8")
-        } else
+    if (sweave)
+        if (weaver && requireNamespace("weaver"))
+            Sweave(fn, driver = weaver::weaver(), encoding = "utf8")
+        else
             Sweave(fn, encoding = "utf8")
-    }
     if (latexmk)
         system(paste("latexmk -lualatex", gsub("Rnw$", "tex", fn)))
 }
@@ -353,4 +352,41 @@ pkg_build <- build_pkg <- function(pkg, parent.dir = ".",
     }
 
     invisible(NULL)
+}
+
+pkg_clean <- function(do = FALSE,
+                      pkg = ".*" ,
+                      parent.dir = ".",
+                      keep.latest = FALSE) {
+
+    cwd <- getwd()
+    on.exit(setwd(cwd))
+    setwd(parent.dir)
+    ans <- 0
+    d <- dir(pattern = paste0(pkg, ".Rcheck"))
+    if (!length(d)) 
+        cat("No Rcheck directories found.\n")
+    else {
+        cat("Rcheck directories found:\n")
+        cat(sort(paste(" ", d)), sep = "\n")
+    }
+    if (length(d) && do) {
+        ans <- unlink(d, TRUE, TRUE)
+        cat("\n  ... removed.\n")
+    }
+
+    d <- dir(pattern = paste0("^", pkg, ".*[.]tar[.]gz$"))
+    if (!length(d)) 
+        cat("No tarballs found.\n")
+    else {
+        cat("Tarballs found:\n")
+        cat(sort(paste(" ", d)), sep = "\n")
+    }
+    if (length(d) && do) {
+        ans <- unlink(d, TRUE, TRUE)
+        cat("\n  ... removed.\n")
+    }
+
+    
+    invisible(ans)
 }
