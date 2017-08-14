@@ -286,15 +286,14 @@ latest_version <- function(pkg, path = ".") {
     all_p[max(all_v) == all_v]
 }
 
-make_tex <- function(fn, sweave = TRUE, weaver = FALSE, encoding = "utf8", latexmk = FALSE) {
+make_tex <- function(fn, sweave = TRUE, weaver = FALSE,
+                     encoding = "utf8", latexmk = FALSE) {
     ## encoding "" is default for Sweave
-    if (sweave) {
-        if (weaver) {
-            require("weaver")
-            Sweave(fn, driver = weaver(), encoding = "utf8")
-        } else
+    if (sweave)
+        if (weaver && requireNamespace("weaver"))
+            Sweave(fn, driver = weaver::weaver(), encoding = "utf8")
+        else
             Sweave(fn, encoding = "utf8")
-    }
     if (latexmk)
         system(paste("latexmk -lualatex", gsub("Rnw$", "tex", fn)))
 }
@@ -355,52 +354,90 @@ pkg_build <- build_pkg <- function(pkg, parent.dir = ".",
     invisible(NULL)
 }
 
-short_fn <- function(x, length = 50) {
+pkg_clean <- function(do = FALSE,
+                      pkg = ".*" ,
+                      parent.dir = ".",
+                      keep.latest = FALSE) {
+    
+    cwd <- getwd()
+    on.exit(setwd(cwd))
+    setwd(parent.dir)
+    ans <- 0
+    d <- dir(pattern = paste0(pkg, ".Rcheck"))
+    if (!length(d)) 
+        cat("No Rcheck directories found.\n")
+    else {
+        cat("Rcheck directories found:\n")
+        cat(sort(paste(" ", d)), sep = "\n")
+    }
+    if (length(d) && do) {
+        ans <- unlink(d, TRUE, TRUE)
+        cat("\n  ... removed.\n\n")
+    }
 
-      if (!length(x))
-          return(character(0))
+    d <- dir(pattern = paste0("^", pkg, ".*[.]tar[.]gz$"))
+    if (!length(d)) 
+        cat("No tarballs found.\n")
+    else {
+        cat("Tarballs found:\n")
+        cat(sort(paste(" ", d)), sep = "\n")
+    }
+    if (length(d) && do) {
+        ans <- unlink(d, TRUE, TRUE)
+        cat("\n  ... removed.\n")
+    }
 
-      bname <- gsub("(.*)[.][^.]*", "\\1", x)
-      ext <- gsub(".*[.]([^.]*)", "\\1", x)
-
-      ## make underscore
-      chars <- c("[", "]", ".",
-                 ",", ";", "+",
-                 "%20", "%2E",
-                 "(", ")", "&", " ")
-
-      for (ch in chars)
-          bname <- gsub(ch, "_", bname, fixed = TRUE)
-
-      ## replace single characters
-      ## bname <- gsub("[^[:alpha:]][[:alpha:]][^[:alpha:]]", "_", bname)
-
-      ## replace multiple _ with a single _
-      chars <- c("__*")
-      for (ch in chars)
-          bname <- gsub(ch, "_", bname)
-
-      ## remove patters/chars
-      chars <- c("^_", "'", "‘", "’")
-      for (ch in chars)
-          bname <- gsub(ch, "", bname)
-
-      ## replace phrases
-      phrases <- c("value-at-risk", "VaR",
-                   "volatility", "vol",
-                   "ä", "ae",
-                   "ö", "oe",
-                   "ü", "ue",
-                   "ß", "ss")
-      for (i in seq(1, length(phrases), by = 2))
-          bname <- gsub(phrases[i], phrases[i+1], bname, ignore.case = TRUE)
-
-      bname <- substr(bname, 1, length)
-
-      ## remove trailing _
-      chars <- c("_$")
-      for (ch in chars)
-          bname <- gsub(ch, "\\1", bname)
-
-      paste0(bname, ".", ext)
+    
+    invisible(ans)
 }
+
+short_fn <- function(x, length = 50) {
+    
+    if (!length(x))
+        return(character(0))
+    
+    bname <- gsub("(.*)[.][^.]*", "\\1", x)
+    ext <- gsub(".*[.]([^.]*)", "\\1", x)
+    
+    ## make underscore
+    chars <- c("[", "]", ".",
+               ",", ";", "+",
+               "%20", "%2E",
+               "(", ")", "&", " ")
+    
+    for (ch in chars)
+        bname <- gsub(ch, "_", bname, fixed = TRUE)
+    
+    ## replace single characters
+    ## bname <- gsub("[^[:alpha:]][[:alpha:]][^[:alpha:]]", "_", bname)
+    
+    ## replace multiple _ with a single _
+    chars <- c("__*")
+    for (ch in chars)
+        bname <- gsub(ch, "_", bname)
+    
+    ## remove patters/chars
+    chars <- c("^_", "'", "‘", "’")
+    for (ch in chars)
+        bname <- gsub(ch, "", bname)
+    
+    ## replace phrases
+    phrases <- c("value-at-risk", "VaR",
+                 "volatility", "vol",
+                 "ä", "ae",
+                 "ö", "oe",
+                 "ü", "ue",
+                 "ß", "ss")
+    for (i in seq(1, length(phrases), by = 2))
+        bname <- gsub(phrases[i], phrases[i+1], bname, ignore.case = TRUE)
+    
+    bname <- substr(bname, 1, length)
+    
+    ## remove trailing _
+    chars <- c("_$")
+    for (ch in chars)
+        bname <- gsub(ch, "\\1", bname)
+    
+    paste0(bname, ".", ext)
+}
+
