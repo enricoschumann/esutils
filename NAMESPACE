@@ -19,5 +19,6 @@ export(
     "nth",
     "pdf2txt",
     "qrequire",
+    "short_fn",
     "ss2csv",
     "xy_text")

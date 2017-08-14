@@ -1,3 +1,7 @@
+2017-08-14  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (short_fn): add function
+
 2017-08-10  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/functions.R (pkg_build, build_pkg): update

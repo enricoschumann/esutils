@@ -354,3 +354,53 @@ pkg_build <- build_pkg <- function(pkg, parent.dir = ".",
 
     invisible(NULL)
 }
+
+short_fn <- function(x, length = 50) {
+
+      if (!length(x))
+          return(character(0))
+
+      bname <- gsub("(.*)[.][^.]*", "\\1", x)
+      ext <- gsub(".*[.]([^.]*)", "\\1", x)
+
+      ## make underscore
+      chars <- c("[", "]", ".",
+                 ",", ";", "+",
+                 "%20", "%2E",
+                 "(", ")", "&", " ")
+
+      for (ch in chars)
+          bname <- gsub(ch, "_", bname, fixed = TRUE)
+
+      ## replace single characters
+      ## bname <- gsub("[^[:alpha:]][[:alpha:]][^[:alpha:]]", "_", bname)
+
+      ## replace multiple _ with a single _
+      chars <- c("__*")
+      for (ch in chars)
+          bname <- gsub(ch, "_", bname)
+
+      ## remove patters/chars
+      chars <- c("^_", "'", "‘", "’")
+      for (ch in chars)
+          bname <- gsub(ch, "", bname)
+
+      ## replace phrases
+      phrases <- c("value-at-risk", "VaR",
+                   "volatility", "vol",
+                   "ä", "ae",
+                   "ö", "oe",
+                   "ü", "ue",
+                   "ß", "ss")
+      for (i in seq(1, length(phrases), by = 2))
+          bname <- gsub(phrases[i], phrases[i+1], bname, ignore.case = TRUE)
+
+      bname <- substr(bname, 1, length)
+
+      ## remove trailing _
+      chars <- c("_$")
+      for (ch in chars)
+          bname <- gsub(ch, "\\1", bname)
+
+      paste0(bname, ".", ext)
+}
