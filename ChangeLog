@@ -1,3 +1,10 @@
+2017-08-18  Enrico Schumann  <es@enricoschumann.net>
+
+	* NAMESPACE: 'pkg_build' is no longer available
+
+	* R/functions.R (pkg_build): use resave-data
+	when building a package
+
 2017-08-14  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/functions.R (short_fn): add function

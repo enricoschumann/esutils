@@ -298,13 +298,14 @@ make_tex <- function(fn, sweave = TRUE, weaver = FALSE,
         system(paste("latexmk -lualatex", gsub("Rnw$", "tex", fn)))
 }
 
-pkg_build <- build_pkg <- function(pkg, parent.dir = ".",
+pkg_build <- function(pkg, parent.dir = ".",
                       check = FALSE,
                       build.vignettes = TRUE,
                       run.tests = TRUE,
                       install = FALSE,
                       clean = FALSE,
-                      bump.version = FALSE) {
+                      bump.version = FALSE,
+                      resave.data = TRUE) {
     cwd <- getwd()
     on.exit(setwd(cwd))
     setwd(parent.dir)
@@ -321,9 +322,9 @@ pkg_build <- build_pkg <- function(pkg, parent.dir = ".",
         writeLines(D, D_file)
     }
     if (build.vignettes)
-        system(paste("R CMD build", pkg))
+        system(paste("R CMD build --resave-data=best", pkg))
     else
-        system(paste("R CMD build --no-build-vignettes", pkg))
+        system(paste("R CMD build --resave-data=best --no-build-vignettes", pkg))
 
     if (run.tests) {
         Sys.setenv("ES_PACKAGE_TESTING"=TRUE)

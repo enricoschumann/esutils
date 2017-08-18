@@ -9,7 +9,6 @@ importFrom("textutils",
 
 export(
     "TODO",
-    "build_pkg",
     "char2num",
     "header",
     "here",
