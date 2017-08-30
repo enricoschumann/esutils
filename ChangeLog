@@ -1,3 +1,10 @@
+2017-08-30  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): 0.1-13
+
+	* R/functions.R (here): default of trim is
+	'TRUE'
+
 2017-08-18  Enrico Schumann  <es@enricoschumann.net>
 
 	* NAMESPACE: 'pkg_build' is no longer available

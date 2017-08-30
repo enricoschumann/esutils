@@ -3,7 +3,7 @@
 here <- function(s, drop = TRUE, guess.type = TRUE,
                  sep = NULL, header = TRUE,
                  stringsAsFactors = FALSE,
-                 trim = FALSE, ...) {
+                 trim = TRUE, ...) {
     ans <- readLines(textConnection(s))
     
     if (drop && ans[len <- length(ans)] == "")
