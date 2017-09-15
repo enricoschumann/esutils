@@ -305,7 +305,8 @@ pkg_build <- function(pkg, parent.dir = ".",
                       install = FALSE,
                       clean = FALSE,
                       bump.version = FALSE,
-                      resave.data = TRUE) {
+                      resave.data = TRUE,
+                      show.test.results = TRUE) {
     cwd <- getwd()
     on.exit(setwd(cwd))
     setwd(parent.dir)
@@ -328,12 +329,20 @@ pkg_build <- function(pkg, parent.dir = ".",
 
     if (run.tests) {
         Sys.setenv("ES_PACKAGE_TESTING"=TRUE)
-        ans <- try(source(file.path(pkg, "inst", "unitTests", "runTests.R")), silent = TRUE)
+        ans <- try(source(file.path(pkg,
+                                    "inst",
+                                    "unitTests",
+                                    "runTests.R")),
+                   silent = TRUE)
         Sys.setenv("ES_PACKAGE_TESTING"=FALSE)
         if (inherits(ans, "try-error"))
             message("check is TRUE but no unit tests found")
-        else
-            try(browseURL(file.path(getwd(), pkg, "inst", "unitTests", "test_results.txt")), silent = TRUE)
+        else if (show.test.results)
+            try(browseURL(file.path(getwd(), pkg,
+                                    "inst",
+                                    "unitTests",
+                                    "test_results.txt")),
+                silent = TRUE)
     }
 
     if (install)
