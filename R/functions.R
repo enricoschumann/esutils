@@ -322,10 +322,11 @@ pkg_build <- function(pkg, parent.dir = ".",
         D[i] <- paste("Date:", Sys.Date())
         writeLines(D, D_file)
     }
-    if (build.vignettes)
-        system(paste("R CMD build --resave-data=best", pkg))
-    else
-        system(paste("R CMD build --resave-data=best --no-build-vignettes", pkg))
+    msg <- system2("R", c("CMD build",
+                          if (resave.data)      "--resave-data=best",
+                          if (!build.vignettes) "--no-build-vignettes",
+                          pkg),
+                   stdout = TRUE, stderr = TRUE)
 
     if (run.tests) {
         Sys.setenv("ES_PACKAGE_TESTING"=TRUE)
@@ -346,11 +347,15 @@ pkg_build <- function(pkg, parent.dir = ".",
     }
 
     if (install)
-        system(paste0("R CMD INSTALL --merge-multiarch ", esutils::latest_version(pkg)))
+        msg <- c(msg, system2("R", c("CMD", "INSTALL",
+                                     "--merge-multiarch",
+                                     esutils::latest_version(pkg))))
 
     if (check) {
         Sys.setenv("ES_PACKAGE_TESTING"=TRUE)
-        system(paste0("R CMD check ", esutils::latest_version(pkg)))
+        msg <- c(msg,
+                 system2("R", c("CMD", "check", esutils::latest_version(pkg)),
+                         stdout = TRUE, stderr = TRUE))
         Sys.setenv("ES_PACKAGE_TESTING"=FALSE)
         ## browseURL(file.path(getwd(), paste0(pkg, ".Rcheck"),
         ##                     "inst", "unitTests", "test_results.txt"))
@@ -361,7 +366,7 @@ pkg_build <- function(pkg, parent.dir = ".",
         unlink(dir(pattern = paste0("^", pkg, ".*[.]tar[.]gz$")))
     }
 
-    invisible(NULL)
+    invisible(msg)
 }
 
 pkg_clean <- function(do = FALSE,
