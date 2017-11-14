@@ -349,7 +349,8 @@ pkg_build <- function(pkg, parent.dir = ".",
     if (install)
         msg <- c(msg, system2("R", c("CMD", "INSTALL",
                                      "--merge-multiarch",
-                                     esutils::latest_version(pkg))))
+                                     esutils::latest_version(pkg)),
+                              stdout = TRUE, stderr = TRUE))
 
     if (check) {
         Sys.setenv("ES_PACKAGE_TESTING"=TRUE)
