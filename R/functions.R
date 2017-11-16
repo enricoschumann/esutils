@@ -373,36 +373,42 @@ pkg_build <- function(pkg, parent.dir = ".",
 pkg_clean <- function(do = FALSE,
                       pkg = ".*" ,
                       parent.dir = ".",
-                      keep.latest = FALSE) {
+                      keep.latest = FALSE,
+                      silent = FALSE) {
     
     cwd <- getwd()
     on.exit(setwd(cwd))
     setwd(parent.dir)
     ans <- 0
     d <- dir(pattern = paste0(pkg, ".Rcheck"))
-    if (!length(d)) 
-        cat("No Rcheck directories found.\n")
-    else {
-        cat("Rcheck directories found:\n")
-        cat(sort(paste(" ", d)), sep = "\n")
+    if (!silent) {
+        if (!length(d)) 
+            cat("No Rcheck directories found.\n")
+        else {
+            cat("Rcheck directories found:\n")
+            cat(sort(paste(" ", d)), sep = "\n")
+        }
     }
     if (length(d) && do) {
         ans <- unlink(d, TRUE, TRUE)
-        cat("\n  ... removed.\n\n")
+        if (!silent)
+            cat("\n  ... removed.\n\n")
     }
 
     d <- dir(pattern = paste0("^", pkg, ".*[.]tar[.]gz$"))
-    if (!length(d)) 
-        cat("No tarballs found.\n")
-    else {
-        cat("Tarballs found:\n")
-        cat(sort(paste(" ", d)), sep = "\n")
+    if (!silent) {
+        if (!length(d)) 
+            cat("No tarballs found.\n")
+        else {
+            cat("Tarballs found:\n")
+            cat(sort(paste(" ", d)), sep = "\n")
+        }
     }
     if (length(d) && do) {
         ans <- unlink(d, TRUE, TRUE)
-        cat("\n  ... removed.\n")
+        if (!silent)
+            cat("\n  ... removed.\n")
     }
-
     
     invisible(ans)
 }
@@ -457,3 +463,16 @@ short_fn <- function(x, length = 50) {
     paste0(bname, ".", ext)
 }
 
+search_files <- function(search, path, file.pattern = NULL, recursive = TRUE, ...) {
+    files <- dir(path, pattern = file.pattern, recursive = recursive, ...)
+    on.exit(getwd())
+    setwd(path)
+    for (f in files) {
+        src <- readLines(f, warn = FALSE)
+        lines <- grep(search, src)
+        if (length(lines)) {
+            cat(paste0(f, "::", lines, "::", src[lines]), sep = "\n")
+        }
+    }
+    invisible(NULL)
+}

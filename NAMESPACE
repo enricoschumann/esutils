@@ -14,6 +14,7 @@ export(
     "here",
     "latest_version",
     "make_tex",
+    "search_files",
     "map01",
     "nth",
     "pdf2txt",
