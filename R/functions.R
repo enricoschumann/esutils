@@ -259,26 +259,6 @@ char2num <- function(s, dec = ",", big.mark = ".") {
     as.numeric(sub(dec, Sys.localeconv()[["decimal_point"]], s, fixed = TRUE))
 }
 
-header <- function(h, width = 55,
-                   line = "-",
-                   open = " [[ ",
-                   close = " ]] ",
-                   line.start = "## ",
-                   line.end = "") {
-
-    nc <- nchar(h)
-    left <- width - (nc + nchar(line.start) + nchar(line.end) +
-                     nchar(open) + nchar(close))
-    lines <- character(length(h))
-    for (i in 1:length(h)) {
-        lines[i] <- paste0(rep(line, trunc(left[[i]]/2)), collapse = "")
-    }
-    paste0(line.start,
-           ifelse(left %% 2, " ", ""),
-           lines, open, h, close, lines,
-           line.end)
-}
-
 latest_version <- function(pkg, path = ".") {
     all_p <- dir(path, pattern = paste0(pkg, ".*tar[.]gz"))
     all_v <- gsub(".*_([0-9]+[.][0-9]+-[0-9]+)[.]tar[.]gz", "\\1", all_p)
@@ -476,3 +456,37 @@ search_files <- function(search, path, file.pattern = NULL, recursive = TRUE, ..
     }
     invisible(NULL)
 }
+
+header <- function(h, width = 55,
+                   line = "-",
+                   open = " [[ ",
+                   close = " ]] ",
+                   line.start = "## ",
+                   line.end = "") {
+
+    nc <- nchar(h)
+    left <- width - (nc + nchar(line.start) + nchar(line.end) +
+                     nchar(open) + nchar(close))
+    lines <- character(length(h))
+    for (i in 1:length(h)) {
+        lines[i] <- paste0(rep(line, trunc(left[[i]]/2)), collapse = "")
+    }
+    paste0(line.start,
+           ifelse(left %% 2, " ", ""),
+           lines, open, h, close, lines,
+           line.end)
+}
+
+add_toc <- function(txt, number = FALSE,
+                    re.header = "^## *--+ *\\[(.+)\\] *--+ *",
+                    re.toc.begin = "^## *contents",
+                    re.toc.end = "^## /",
+                    ignore.case = TRUE,
+                    elisp = TRUE) {
+    txt <- readLines("~/Desktop/topics.txt")
+    hlines <- grepl(re.header, txt)
+    htexts <- trim(gsub(re.header, "\\1", txt[hlines]))
+    txt[hlines] <- header(htexts)
+    
+}
+
