@@ -1,3 +1,12 @@
+2018-02-27  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (allday_event): add function
+
+2018-01-08  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (latest_version): new argument
+	'type'
+
 2017-11-22  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/bib.R (number_todo): add function

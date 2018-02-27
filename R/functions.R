@@ -259,9 +259,22 @@ char2num <- function(s, dec = ",", big.mark = ".") {
     as.numeric(sub(dec, Sys.localeconv()[["decimal_point"]], s, fixed = TRUE))
 }
 
-latest_version <- function(pkg, path = ".") {
-    all_p <- dir(path, pattern = paste0(pkg, ".*tar[.]gz"))
-    all_v <- gsub(".*_([0-9]+[.][0-9]+-[0-9]+)[.]tar[.]gz", "\\1", all_p)
+## path <- "~/Work_CPVCAP/R_packages"
+## pkg <- ".*"
+
+## pv <- function(s, ext) {
+##     gsub(paste0("[a-zA-Z.]+_([0-9.-]+?)", ext),
+##          "\\1", s)
+
+## }
+latest_version <- function(pkg, path = ".", type = "source") {
+    if (type == "source")
+        ext <- "[.]tar[.]gz"
+    else if (type == "binary" || type == "zip")
+        ext <- "[.]zip"
+    all_p <- dir(path, pattern = paste0(pkg, ".*", ext))
+    all_v <- gsub(paste0(".*_([0-9]+[.][0-9]+-[0-9]+)", ext),
+                  "\\1", all_p)
     all_v  <- package_version(all_v)
     all_p[max(all_v) == all_v]
 }
@@ -490,3 +503,43 @@ add_toc <- function(txt, number = FALSE,
     
 }
 
+
+eol <- "\r\n"
+fold <- "\r\n "
+
+allday_event <- function(date, summary, description = "", file) {
+
+    UID <- paste0(mailtools:::msgID(), ".", Sys.info()["nodename"])
+    DTSTAMP <- format(as.POSIXlt(Sys.time(), tz = "UTC"), "%Y%m%dT%H%M%SZ")
+
+    DTSTART <- format(date, "%Y%m%d")
+
+    
+tmp <-     
+"BEGIN:VCALENDAR
+VERSION:2.0
+PRODID: esutils
+BEGIN:VEVENT
+UID:{UID}
+DTSTAMP:{DTSTAMP}
+DTSTART;VALUE=DATE:{DTSTART}
+SUMMARY:{SUMMARY}
+DESCRIPTION:{DESCRIPTION}
+END:VEVENT
+END:VCALENDAR"
+
+    tmp <- fill_in(tmp,
+                   UID = UID,
+                   DTSTAMP = DTSTAMP,
+                   DTSTART = DTSTART,
+                   SUMMARY = summary,
+                   DESCRIPTION = description)
+    tmp <- strsplit(tmp, "\n", fixed = TRUE)[[1L]]
+    tmp <- paste(tmp, collapse = eol)
+    if (!missing(file)) {
+        writeLines(tmp, file)
+        invisible(tmp)
+    } else
+        tmp
+    
+}
