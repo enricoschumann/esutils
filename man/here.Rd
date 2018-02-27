@@ -8,7 +8,7 @@
 }
 \usage{
 here(s, drop = TRUE, guess.type = TRUE, sep = NULL, header = TRUE,
-     stringsAsFactors = FALSE, trim = FALSE, \dots)
+     stringsAsFactors = FALSE, trim = TRUE, \dots)
 }
 \arguments{
   \item{s}{

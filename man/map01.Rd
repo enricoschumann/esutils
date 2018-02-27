@@ -8,7 +8,7 @@
   specified range (per default 0 to 1).
 }
 \usage{
-map01(x, min = 0, max = 1, omin = min(x), omax = max(x))
+map01(x, min = 0, max = 1, omin = min(x), omax = max(x), na.rm = FALSE)
 }
 \arguments{
   \item{x}{
@@ -26,11 +26,14 @@ map01(x, min = 0, max = 1, omin = min(x), omax = max(x))
   \item{omax}{
     a numeric vector of length one
 }
+  \item{na.rm}{
+    logical
+}
 }
 \details{
 
-  Maps the elements of a numeric vector to a specified range; default
-  is 0 to 1.
+  Maps the elements of a numeric vector to a specified
+  range; default is 0 to 1.
   
 }
 \value{
