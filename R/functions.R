@@ -556,6 +556,6 @@ bib_temp_key <- function(file, encoding = "UTF-8") {
         paste0(gsub("(.*),\\s*$", "\\1", txt[missing_keys]),
                "TODO",
                seq(n + 1, by = 1, length.out = length(missing_keys)),
-               ",\n")
+               ",")
     writeLines(txt, file)
 }
