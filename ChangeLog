@@ -1,3 +1,7 @@
+2018-03-10  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (bib_temp_key): add function
+
 2018-02-27  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/functions.R (allday_event): add function
