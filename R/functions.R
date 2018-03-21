@@ -283,12 +283,14 @@ make_tex <- function(fn, sweave = TRUE, weaver = FALSE,
                      encoding = "utf8", latexmk = FALSE) {
     ## encoding "" is default for Sweave
     if (sweave)
-        if (weaver && requireNamespace("weaver"))
-            Sweave(fn, driver = weaver::weaver(), encoding = "utf8")
+        if (weaver && require("weaver"))
+            Sweave(fn, encoding = "utf8",
+                   driver = weaver::weaver())
         else
             Sweave(fn, encoding = "utf8")
     if (latexmk)
-        system(paste("latexmk -lualatex", gsub("Rnw$", "tex", fn)))
+        system(paste("latexmk -lualatex",
+                     gsub("Rnw$", "tex", fn)))
 }
 
 pkg_build <- function(pkg, parent.dir = ".",
