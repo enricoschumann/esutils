@@ -545,3 +545,19 @@ END:VCALENDAR"
         tmp
     
 }
+
+bib_temp_key <- function(file, encoding = "UTF-8") {
+
+    txt <- readLines(file, encoding = encoding)
+
+    temp_keys <- grep("@[a-zA-Z]+\\{TODO[0-9]+,\\s*$", txt)
+    n <- max(as.numeric(gsub("@[a-zA-Z]+\\{TODO([0-9]+),\\s*$", "\\1", txt[temp_keys])))
+
+    missing_keys <- grep("@[a-zA-Z]+\\{,\\s*$", txt)
+    txt[missing_keys] <- 
+        paste0(gsub("(.*),\\s*$", "\\1", txt[missing_keys]),
+               "TODO",
+               seq(n + 1, by = 1, length.out = length(missing_keys)),
+               ",")
+    writeLines(txt, file)
+}
