@@ -1,11 +1,19 @@
 importFrom("graphics",
            "axis", "image", "par", "text")
+
 importFrom("utils",
            "capture.output", "read.table", "type.convert",
            "Sweave", "browseURL")
 
+importFrom("tools",
+           "Rcmd")
+
 importFrom("textutils",
            "trim")
+
+importFrom("crayon",
+           "green",
+           "red")
 
 export(
     "TODO",

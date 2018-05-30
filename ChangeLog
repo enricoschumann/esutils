@@ -1,3 +1,10 @@
+2018-05-30  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): 0.1-14
+
+	* R/functions.R (pkg_build): use tools::Rcmd
+	instead of system2; new argument verbose
+
 2018-03-10  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/functions.R (bib_temp_key): add function

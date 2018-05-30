@@ -301,10 +301,16 @@ pkg_build <- function(pkg, parent.dir = ".",
                       clean = FALSE,
                       bump.version = FALSE,
                       resave.data = TRUE,
-                      show.test.results = TRUE) {
+                      show.test.results = TRUE,
+                      verbose = TRUE) {
+
     cwd <- getwd()
     on.exit(setwd(cwd))
     setwd(parent.dir)
+
+    old.crayon <- getOption("crayon.enabled")
+    on.exit(options(crayon.enabled = old.crayon))
+    options(crayon.enabled = TRUE)
 
     if (bump.version) {
         ## TODO allow major/minor/patch
@@ -317,13 +323,27 @@ pkg_build <- function(pkg, parent.dir = ".",
         D[i] <- paste("Date:", Sys.Date())
         writeLines(D, D_file)
     }
-    msg <- system2("R", c("CMD build",
-                          if (resave.data)      "--resave-data=best",
-                          if (!build.vignettes) "--no-build-vignettes",
-                          pkg),
-                   stdout = TRUE, stderr = TRUE)
 
+    ## R CMD build
+    if (verbose)
+        message("Building package ", pkg, " ... ",
+                appendLF = FALSE)
+    msg <- Rcmd(c("build", 
+                  if (resave.data)      "--resave-data=best",
+                  if (!build.vignettes) "--no-build-vignettes",
+                  pkg),
+                stdout = TRUE, stderr = TRUE)
+    error <- any(grepl("ERROR", msg, ignore.case = TRUE))
+    if (verbose && !error)
+        message(green("[OK]"))
+    else if (verbose && error)
+        message(red("[ERROR]"))
+
+
+    ## Unit tests
     if (run.tests) {
+        if (verbose)
+            message("Running tests ... ", appendLF = FALSE)
         Sys.setenv("ES_PACKAGE_TESTING"=TRUE)
         ans <- try(source(file.path(pkg,
                                     "inst",
@@ -332,34 +352,57 @@ pkg_build <- function(pkg, parent.dir = ".",
                    silent = TRUE)
         Sys.setenv("ES_PACKAGE_TESTING"=FALSE)
         if (inherits(ans, "try-error"))
-            message("check is TRUE but no unit tests found")
-        else if (show.test.results)
-            try(browseURL(file.path(getwd(), pkg,
-                                    "inst",
-                                    "unitTests",
-                                    "test_results.txt")),
-                silent = TRUE)
+            message(sQuote("run.tests"),
+                    " is TRUE but no unit tests found")
+        else {
+            test.res <- readLines(
+                file.path(pkg, "inst", "unitTests",
+                          "test_results.txt"))
+            test.res <- test.res[grep(" - [0-9]+ test functions", test.res)]
+            test.res <- gsub(".*test functions, ", "", test.res)
+        }
+        if (!inherits(ans, "try-error") && show.test.results)
+            browseURL(
+                file.path(pkg, "inst", "unitTests",
+                          "test_results.txt"))
+    if (verbose)
+        message("[", test.res, "]")
     }
 
-    if (install)
-        msg <- c(msg, system2("R", c("CMD", "INSTALL",
-                                     "--merge-multiarch",
-                                     esutils::latest_version(pkg)),
-                              stdout = TRUE, stderr = TRUE))
-
-    if (check) {
-        Sys.setenv("ES_PACKAGE_TESTING"=TRUE)
+    
+    ## R CMD INSTALL
+    if (install) {
+        if (verbose)
+            message("Installing ... ", appendLF = FALSE)
         msg <- c(msg,
-                 system2("R", c("CMD", "check", esutils::latest_version(pkg)),
-                         stdout = TRUE, stderr = TRUE))
-        Sys.setenv("ES_PACKAGE_TESTING"=FALSE)
-        ## browseURL(file.path(getwd(), paste0(pkg, ".Rcheck"),
-        ##                     "inst", "unitTests", "test_results.txt"))
+                 Rcmd(c("INSTALL",
+                        "--merge-multiarch",
+                        latest_version(pkg)),
+                      stdout = TRUE, stderr = TRUE))
+        if (verbose)
+            message("[DONE]")
+    }
+
+    
+    ## R CMD check
+    if (check) {
+        if (verbose)
+            message("Running R CMD check ... ", appendLF = FALSE)
+
+        msg <- c(msg,
+                 Rcmd(c("check", latest_version(pkg)),
+                      stdout = TRUE, stderr = TRUE))
+        if (verbose)
+            message("[DONE]")
     }
     
     if (clean) {
+        if (verbose)
+            message("Removing check files ... ", appendLF = FALSE)
         unlink(paste0(pkg, ".Rcheck"), TRUE, TRUE)
         unlink(dir(pattern = paste0("^", pkg, ".*[.]tar[.]gz$")))
+        if (verbose)
+            message("[DONE]")
     }
 
     invisible(msg)
