@@ -324,6 +324,7 @@ pkg_build <- function(pkg, parent.dir = ".",
         writeLines(D, D_file)
     }
 
+    
     ## R CMD build
     if (verbose)
         message("Building package ", pkg, " ... ",
@@ -341,6 +342,8 @@ pkg_build <- function(pkg, parent.dir = ".",
 
 
     ## Unit tests
+    ## ... assumes a directory inst/unitTests with a file
+    ##     runTests.R
     if (run.tests) {
         if (verbose)
             message("Running tests ... ", appendLF = FALSE)
@@ -362,11 +365,20 @@ pkg_build <- function(pkg, parent.dir = ".",
             test.res <- gsub(".*test functions, ", "", test.res)
         }
         if (!inherits(ans, "try-error") && show.test.results)
-            browseURL(
-                file.path(pkg, "inst", "unitTests",
-                          "test_results.txt"))
-    if (verbose)
-        message("[", test.res, "]")
+            try(browseURL(
+                normalizePath(
+                    file.path(pkg, "inst", "unitTests",
+                              "test_results.txt"))),
+                silent = TRUE)
+
+        
+        error <- if (test.res != "0 errors, 0 failures")
+                     TRUE else FALSE
+        
+        if (verbose && error)
+            message(red(paste0("[", test.res, "]")))
+        else if (verbose)
+            message(green("[OK]"))
     }
 
     
@@ -374,13 +386,18 @@ pkg_build <- function(pkg, parent.dir = ".",
     if (install) {
         if (verbose)
             message("Installing ... ", appendLF = FALSE)
-        msg <- c(msg,
+        msg1 <- c(msg,
                  Rcmd(c("INSTALL",
                         "--merge-multiarch",
                         latest_version(pkg)),
                       stdout = TRUE, stderr = TRUE))
-        if (verbose)
-            message("[DONE]")
+
+        error <- any(grepl("ERROR", msg1, ignore.case = TRUE))
+        msg <- c(msg, msg1)
+        if (verbose && !error)
+            message(green("[OK]"))
+        else if (verbose && error)
+            message(red("[ERROR]"))
     }
 
     
@@ -389,11 +406,21 @@ pkg_build <- function(pkg, parent.dir = ".",
         if (verbose)
             message("Running R CMD check ... ", appendLF = FALSE)
 
-        msg <- c(msg,
-                 Rcmd(c("check", latest_version(pkg)),
-                      stdout = TRUE, stderr = TRUE))
-        if (verbose)
-            message("[DONE]")
+        msg1 <- Rcmd(c("check", latest_version(pkg)),
+                     stdout = TRUE, stderr = TRUE)
+        
+        msg <- c(msg, msg1)
+        check.res <- gsub("Status: (.*)", "\\1", msg1[grep("^Status: ", msg1)])
+        error.warn <- grepl("error|warning", check.res, ignore.case = TRUE)
+        note <- grepl("note", check.res, ignore.case = TRUE)
+        if (verbose && !error.warn && !note)
+            message(green("[OK]"))
+        else if (verbose && error.warn)
+            message(red(paste0("[", check.res ,"]")))
+        else if (verbose && note)
+            message(yellow(paste0("[", check.res ,"]")))
+        else if (verbose)
+            message(green("[OK]"))
     }
     
     if (clean) {
@@ -402,7 +429,7 @@ pkg_build <- function(pkg, parent.dir = ".",
         unlink(paste0(pkg, ".Rcheck"), TRUE, TRUE)
         unlink(dir(pattern = paste0("^", pkg, ".*[.]tar[.]gz$")))
         if (verbose)
-            message("[DONE]")
+            message(green("[OK]"))
     }
 
     invisible(msg)
