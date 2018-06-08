@@ -347,17 +347,19 @@ pkg_build <- function(pkg, parent.dir = ".",
     if (run.tests) {
         if (verbose)
             message("Running tests ... ", appendLF = FALSE)
-        Sys.setenv("ES_PACKAGE_TESTING"=TRUE)
+        Sys.setenv("ES_PACKAGE_TESTING" = TRUE)
         ans <- try(source(file.path(pkg,
                                     "inst",
                                     "unitTests",
                                     "runTests.R")),
                    silent = TRUE)
-        Sys.setenv("ES_PACKAGE_TESTING"=FALSE)
-        if (inherits(ans, "try-error"))
+        Sys.setenv("ES_PACKAGE_TESTING" = FALSE)
+        if (inherits(ans, "try-error")) {
             message(sQuote("run.tests"),
-                    " is TRUE but no unit tests found")
-        else {
+                    " is TRUE but no unit tests found ... ",
+                    appendLF = FALSE)
+            test.res <- "0 errors, 0 failures"
+        } else {
             test.res <- readLines(
                 file.path(pkg, "inst", "unitTests",
                           "test_results.txt"))
