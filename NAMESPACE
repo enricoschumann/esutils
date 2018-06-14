@@ -13,7 +13,8 @@ importFrom("textutils",
 
 importFrom("crayon",
            "green",
-           "red")
+           "red",
+           "yellow")
 
 export(
     "TODO",
