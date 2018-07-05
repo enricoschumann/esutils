@@ -300,6 +300,7 @@ pkg_build <- function(pkg, parent.dir = ".",
                       install = FALSE,
                       clean = FALSE,
                       bump.version = FALSE,
+                      bump.date = FALSE,
                       resave.data = TRUE,
                       show.test.results = TRUE,
                       verbose = TRUE) {
@@ -324,6 +325,14 @@ pkg_build <- function(pkg, parent.dir = ".",
         writeLines(D, D_file)
     }
 
+    if (bump.date) {
+        ## TODO allow major/minor/patch
+        D_file <- file.path(pkg, "DESCRIPTION")
+        D <- readLines(D_file)
+        i <- grep("^Date: ", D)
+        D[i] <- paste("Date:", Sys.Date())
+        writeLines(D, D_file)
+    }
     
     ## R CMD build
     if (verbose)
