@@ -2,7 +2,7 @@ Package: esutils
 Type: Package
 Title: esutils
 Version: 0.1-14
-Date: 2018-07-02
+Date: 2018-08-16
 Author: Enrico Schumann
 Maintainer: Enrico Schumann <es@enricoschumann.net>
 Description: Various Tools.
