@@ -1,3 +1,8 @@
+2018-08-16  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (pkg_build): new argument
+	'keep.source'
+
 2018-07-02  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/functions.R (pkg_build): new argument

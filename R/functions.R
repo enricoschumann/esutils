@@ -46,10 +46,14 @@ map01 <- function(x, min = 0, max = 1, omin = min(x), omax = max(x), na.rm = FAL
     (new.range * x + min * omax - max * omin)/old.range
 }
 
-nth <- function (x, n, first = 1L)
+nth <- function (x, n, first = 1L) {
+    i <- seq(first, nrow(x), by = n)
     if (is.matrix(x))
-        x[seq(first, nrow(x), by = n), ] else x[seq(first, length(x), by = n)]
-
+        x[i, ]
+    else
+        x[i]
+}
+    
 pdf2txt <- function(file, out, path.exec = "pdftotext", ..., layout = TRUE) {
 
     files <- file
@@ -298,6 +302,7 @@ pkg_build <- function(pkg, parent.dir = ".",
                       build.vignettes = TRUE,
                       run.tests = TRUE,
                       install = FALSE,
+                      keep.source = FALSE,
                       clean = FALSE,
                       bump.version = FALSE,
                       bump.date = FALSE,
@@ -398,11 +403,12 @@ pkg_build <- function(pkg, parent.dir = ".",
         if (verbose)
             message("Installing ... ", appendLF = FALSE)
         msg1 <- c(msg,
-                 Rcmd(c("INSTALL",
-                        "--merge-multiarch",
-                        latest_version(pkg)),
-                      stdout = TRUE, stderr = TRUE))
-
+                  Rcmd(c("INSTALL",
+                         "--merge-multiarch",
+                         if (keep.source) "--with-keep.source",
+                         latest_version(pkg)),
+                       stdout = TRUE, stderr = TRUE))
+        
         error <- any(grepl("ERROR", msg1, ignore.case = TRUE))
         msg <- c(msg, msg1)
         if (verbose && !error)
