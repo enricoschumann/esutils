@@ -9,7 +9,8 @@ importFrom("tools",
            "Rcmd")
 
 importFrom("textutils",
-           "trim")
+           "trim",
+           "fill_in")
 
 importFrom("crayon",
            "green",
