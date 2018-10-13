@@ -38,6 +38,34 @@ i_ij <- function(index, nrow) {
     cbind(i,j)
 }
 
+## z <- array(runif(100),dim=c(5,3))
+## i <- 3; j <- 2
+## ij_i(3,2, nrow(z))
+
+## # test 1: extract element with i,j and with index
+## z[i,j]
+## z[ij_i(i,j,dim(z)[1L])]
+
+## # test 2: get i,j back from index
+## index <- getIndex(i,j,dim(z)[1L])
+## getIJ(index,dim(z)[1L])
+
+## # vectorised
+## index <- 1:7
+## getIJ(index,dim(z)[1L])
+
+## i <- rep(1,3); j <- 1:3
+## z[cbind(i,j)]
+## z[getIndex(i,j,dim(z)[1L])]
+
+
+## path <- "~/Documents"
+
+## org
+## [[file:sometextfile::NNN]]
+## paste0("[[file:", path, "/",f,"::", ilines,"]]")
+
+
 map01 <- function(x, min = 0, max = 1, omin = min(x), omax = max(x), na.rm = FALSE) {
     if (na.rm)
         message("not yet supported")
@@ -111,32 +139,6 @@ xy_text <- function(x,y,labels, ...) {
     invisible(c(xx,yy))
 }
 
-## z <- array(runif(100),dim=c(5,3))
-## i <- 3; j <- 2
-## ij_i(3,2, nrow(z))
-
-## # test 1: extract element with i,j and with index
-## z[i,j]
-## z[ij_i(i,j,dim(z)[1L])]
-
-## # test 2: get i,j back from index
-## index <- getIndex(i,j,dim(z)[1L])
-## getIJ(index,dim(z)[1L])
-
-## # vectorised
-## index <- 1:7
-## getIJ(index,dim(z)[1L])
-
-## i <- rep(1,3); j <- 1:3
-## z[cbind(i,j)]
-## z[getIndex(i,j,dim(z)[1L])]
-
-
-## path <- "~/Documents"
-
-## org
-## [[file:sometextfile::NNN]]
-## paste0("[[file:", path, "/",f,"::", ilines,"]]")
 
 TODO <- function(path,
                  pattern = "[.]R$|[.]org$|[.]Rnw$",
