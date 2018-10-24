@@ -265,14 +265,6 @@ char2num <- function(s, dec = ",", big.mark = ".") {
     as.numeric(sub(dec, Sys.localeconv()[["decimal_point"]], s, fixed = TRUE))
 }
 
-## path <- "~/Work_CPVCAP/R_packages"
-## pkg <- ".*"
-
-## pv <- function(s, ext) {
-##     gsub(paste0("[a-zA-Z.]+_([0-9.-]+?)", ext),
-##          "\\1", s)
-
-## }
 latest_version <- function(pkg, path = ".", type = "source") {
     if (type == "source")
         ext <- "[.]tar[.]gz"
@@ -407,6 +399,7 @@ pkg_build <- function(pkg, parent.dir = ".",
         msg1 <- c(msg,
                   Rcmd(c("INSTALL",
                          "--merge-multiarch",
+                         "--byte-compile",
                          if (keep.source) "--with-keep.source",
                          latest_version(pkg)),
                        stdout = TRUE, stderr = TRUE))
@@ -650,3 +643,15 @@ bib_temp_key <- function(file, encoding = "UTF-8") {
                ",")
     writeLines(txt, file)
 }
+
+wait <- function(x) 
+    if (length(x) == 1L)
+        Sys.sleep(x) else Sys.sleep(runif(1L, min(x), max(x)))
+
+
+insert <- function(x, list, values) {
+    len <- length(list) * (length(values) - 1L) + length(x)
+    ans <- vector(typeof(x), length = len)
+    seq_len(len)
+}
+
