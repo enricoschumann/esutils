@@ -1,3 +1,7 @@
+2018-10-29  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (nth): fix nrow => NROW
+
 2018-08-16  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/functions.R (pkg_build): new argument

@@ -75,7 +75,7 @@ map01 <- function(x, min = 0, max = 1, omin = min(x), omax = max(x), na.rm = FAL
 }
 
 nth <- function (x, n, first = 1L) {
-    i <- seq(first, nrow(x), by = n)
+    i <- seq(first, NROW(x), by = n)
     if (is.matrix(x))
         x[i, ]
     else
