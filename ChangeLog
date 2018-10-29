@@ -1,6 +1,8 @@
 2018-10-29  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/functions.R (nth): fix nrow => NROW
+	(pkg_build): fix for unit tests with only a
+	single test function
 
 2018-08-16  Enrico Schumann  <es@enricoschumann.net>
 

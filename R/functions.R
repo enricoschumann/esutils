@@ -371,7 +371,7 @@ pkg_build <- function(pkg, parent.dir = ".",
             test.res <- readLines(
                 file.path(pkg, "inst", "unitTests",
                           "test_results.txt"))
-            test.res <- test.res[grep(" - [0-9]+ test functions", test.res)]
+            test.res <- test.res[grep(" - [0-9]+ test functions?", test.res)]
             test.res <- gsub(".*test functions, ", "", test.res)
         }
         if (!inherits(ans, "try-error") && show.test.results)
