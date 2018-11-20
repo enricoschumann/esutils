@@ -655,3 +655,42 @@ insert <- function(x, list, values) {
     seq_len(len)
 }
 
+sw_options <- function(filename) {
+
+    txt <- readLines(filename)
+    i <- grep("^<<.*>>=\\s?$", txt)
+    
+    if (any(i)) {
+        x <- txt[i]
+
+        x <- sub("^[[:space:]]*(.*)", "\\1", x)
+        x <- sub("(.*[^[:space:]])[[:space:]]*$", "\\1", x)
+        x <- sub("<<(.*)>>=?", "\\1", x)
+        x <- strsplit(x, "[[:space:]]*,[[:space:]]*")
+        x <- lapply(x, strsplit,  "[[:space:]]*=[[:space:]]*")
+        
+        x <- lapply(x,
+                    function(x) {
+            if (length(x) && length(x[[1L]]) == 1)
+                x[[1L]] <- c("label", x[[1L]])
+            x })
+        lapply(x,
+               function(x) {
+            if (length(x)) {
+                ans <- lapply(x, `[[`, 2)
+                names(ans) <- lapply(x, `[[`, 1)
+                ans
+            } else
+                ans <- list()
+            ans
+        })
+        
+    } else
+        list()
+}
+
+sw_names <- function(filename, names.only = FALSE) {
+    opts <- sw_options(filename)
+    if (names.only) 
+        unlist(lapply(opts, `[[`, "label"))    
+}

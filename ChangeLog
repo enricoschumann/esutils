@@ -1,3 +1,8 @@
+2018-11-20  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (sw_options, sw_names): add
+	functions
+
 2018-10-29  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/functions.R (nth): fix nrow => NROW
