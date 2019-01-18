@@ -2,11 +2,15 @@ Package: esutils
 Type: Package
 Title: esutils
 Version: 0.1-14
-Date: 2018-08-16
-Author: Enrico Schumann
+Date: 2019-01-18
 Maintainer: Enrico Schumann <es@enricoschumann.net>
+Authors@R: person(given = "Enrico", family = "Schumann", 
+                  role  = c("aut", "cre"),
+                  email = "es@enricoschumann.net",
+		  comment = c(ORCID = "0000-0001-7601-6576"))
 Description: Various Tools.
 License: GPL (>=2)
 SystemRequirements: ssconvert (Gnumeric), pdftotext (Xpdf)
 Imports: crayon, graphics, textutils, tools, utils
 Suggests: weaver
+URL: http://enricoschumann.net/esutils/

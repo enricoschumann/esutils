@@ -1,3 +1,7 @@
+2019-01-18  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (insert): add function
+
 2018-11-20  Enrico Schumann  <es@enricoschumann.net>
 
 	* R/functions.R (sw_options, sw_names): add

@@ -694,3 +694,10 @@ sw_names <- function(filename, names.only = FALSE) {
     if (names.only) 
         unlist(lapply(opts, `[[`, "label"))    
 }
+
+insert <- function(x, what, before.index) {
+    ans <- vector(class(x), length(x) + length(what))
+    ans[ before.index] <- what
+    ans[-before.index] <- x
+    ans
+}
