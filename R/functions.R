@@ -1,29 +1,5 @@
 ## -*- truncate-lines: t; fill-column: 65; comment-column: 50; -*-
 
-here <- function(s, drop = TRUE, guess.type = TRUE,
-                 sep = NULL, header = TRUE,
-                 stringsAsFactors = FALSE,
-                 trim = TRUE, ...) {
-    ans <- readLines(textConnection(s))
-    
-    if (drop && ans[len <- length(ans)] == "")
-        ans <- ans[-len]
-    if (drop && ans[1L] == "")
-        ans <- ans[-1L]
-
-    if (is.null(sep) && guess.type)
-        ans <- type.convert(ans, as.is = TRUE)
-    else {
-        ans <- read.table(text = ans,
-                          header = header, sep = sep,
-                          stringsAsFactors = stringsAsFactors,
-                          strip.white = trim,
-                          colClasses = if (guess.type)
-                                NA else "character", ...)
-    }
-    ans
-}
-
 ij_i <- function(i, j, nrow) {
     if (is.matrix(i))
         i[ ,1L] + (j[ ,2L] - 1) * nrow

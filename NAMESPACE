@@ -10,6 +10,7 @@ importFrom("tools",
 
 importFrom("textutils",
            "trim",
+           "here",
            "fill_in")
 
 importFrom("crayon",
@@ -21,7 +22,6 @@ export(
     "TODO",
     "char2num",
     "header",
-    "here",
     "insert",
     "latest_version",
     "make_tex",
