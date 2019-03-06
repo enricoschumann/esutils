@@ -14,35 +14,9 @@ i_ij <- function(index, nrow) {
     cbind(i,j)
 }
 
-## z <- array(runif(100),dim=c(5,3))
-## i <- 3; j <- 2
-## ij_i(3,2, nrow(z))
-
-## # test 1: extract element with i,j and with index
-## z[i,j]
-## z[ij_i(i,j,dim(z)[1L])]
-
-## # test 2: get i,j back from index
-## index <- getIndex(i,j,dim(z)[1L])
-## getIJ(index,dim(z)[1L])
-
-## # vectorised
-## index <- 1:7
-## getIJ(index,dim(z)[1L])
-
-## i <- rep(1,3); j <- 1:3
-## z[cbind(i,j)]
-## z[getIndex(i,j,dim(z)[1L])]
-
-
-## path <- "~/Documents"
-
-## org
-## [[file:sometextfile::NNN]]
-## paste0("[[file:", path, "/",f,"::", ilines,"]]")
-
-
-map01 <- function(x, min = 0, max = 1, omin = min(x), omax = max(x), na.rm = FALSE) {
+map01 <- function(x, min = 0, max = 1,
+                  omin = min(x), omax = max(x),
+                  na.rm = FALSE) {
     if (na.rm)
         message("not yet supported")
     new.range <- max - min
@@ -57,7 +31,7 @@ nth <- function (x, n, first = 1L) {
     else
         x[i]
 }
-    
+
 pdf2txt <- function(file, out, path.exec = "pdftotext", ..., layout = TRUE) {
 
     files <- file
@@ -133,13 +107,12 @@ TODO <- function(path,
         lines <- readLines(f, warn = FALSE)
         if (any(ilines <- grep("TODO", lines, useBytes = TRUE))) {
             ## browser()
-            cat("\n=== ", f, " : ", 
+            cat("\n=== ", f, " : ",
                 paste(ilines, collapse = ", "), "\n", sep = "",
                 paste(lines[rep(ilines, each = length(offset))  + offset],
                       collapse = "\n"),
                 "\n===\n")
             cat("\n\n")
-            
         }
     }
     invisible(NULL)
@@ -198,7 +171,7 @@ package.skeleton2 <- function(name = "anRpackage",
     ## .Rbuildignore
 
 ##    package.skeleton
-    
+
 }
 
 fun_names <- function(dir,
@@ -212,7 +185,7 @@ fun_names <- function(dir,
     for (f in files) {
         txt <- readLines(f)
         fun.lines <- grepl(fun_pattern, txt)
-        
+
         if (any(fun.lines)) {
             ans <- rbind(ans,
                          data.frame(fun = gsub(fun_pattern, "\\1",
@@ -308,12 +281,12 @@ pkg_build <- function(pkg, parent.dir = ".",
         D[i] <- paste("Date:", Sys.Date())
         writeLines(D, D_file)
     }
-    
+
     ## R CMD build
     if (verbose)
         message("Building package ", pkg, " ... ",
                 appendLF = FALSE)
-    msg <- Rcmd(c("build", 
+    msg <- Rcmd(c("build",
                   if (resave.data)      "--resave-data=best",
                   if (!build.vignettes) "--no-build-vignettes",
                   pkg),
@@ -332,11 +305,12 @@ pkg_build <- function(pkg, parent.dir = ".",
         if (verbose)
             message("Running tests ... ", appendLF = FALSE)
         Sys.setenv("ES_PACKAGE_TESTING" = TRUE)
-        ans <- try(source(file.path(pkg,
-                                    "inst",
-                                    "unitTests",
-                                    "runTests.R")),
-                   silent = TRUE)
+        ans <- suppressWarnings(
+            try(source(file.path(pkg,
+                                 "inst",
+                                 "unitTests",
+                                 "runTests.R")),
+                   silent = TRUE))
         Sys.setenv("ES_PACKAGE_TESTING" = FALSE)
         if (inherits(ans, "try-error")) {
             message(sQuote("run.tests"),
@@ -357,17 +331,16 @@ pkg_build <- function(pkg, parent.dir = ".",
                               "test_results.txt"))),
                 silent = TRUE)
 
-        
+
         error <- if (test.res != "0 errors, 0 failures")
                      TRUE else FALSE
-        
+
         if (verbose && error)
             message(red(paste0("[", test.res, "]")))
         else if (verbose)
             message(green("[OK]"))
     }
 
-    
     ## R CMD INSTALL
     if (install) {
         if (verbose)
@@ -379,7 +352,7 @@ pkg_build <- function(pkg, parent.dir = ".",
                          if (keep.source) "--with-keep.source",
                          latest_version(pkg)),
                        stdout = TRUE, stderr = TRUE))
-        
+
         error <- any(grepl("ERROR", msg1, ignore.case = TRUE))
         msg <- c(msg, msg1)
         if (verbose && !error)
@@ -388,7 +361,6 @@ pkg_build <- function(pkg, parent.dir = ".",
             message(red("[ERROR]"))
     }
 
-    
     ## R CMD check
     if (check) {
         if (verbose)
@@ -396,7 +368,7 @@ pkg_build <- function(pkg, parent.dir = ".",
 
         msg1 <- Rcmd(c("check", latest_version(pkg)),
                      stdout = TRUE, stderr = TRUE)
-        
+
         msg <- c(msg, msg1)
         check.res <- gsub("Status: (.*)", "\\1", msg1[grep("^Status: ", msg1)])
         error.warn <- grepl("error|warning", check.res, ignore.case = TRUE)
@@ -410,7 +382,7 @@ pkg_build <- function(pkg, parent.dir = ".",
         else if (verbose)
             message(green("[OK]"))
     }
-    
+
     if (clean) {
         if (verbose)
             message("Removing check files ... ", appendLF = FALSE)
@@ -428,14 +400,14 @@ pkg_clean <- function(do = FALSE,
                       parent.dir = ".",
                       keep.latest = FALSE,
                       silent = FALSE) {
-    
+
     cwd <- getwd()
     on.exit(setwd(cwd))
     setwd(parent.dir)
     ans <- 0
     d <- dir(pattern = paste0(pkg, ".Rcheck"))
     if (!silent) {
-        if (!length(d)) 
+        if (!length(d))
             cat("No Rcheck directories found.\n")
         else {
             cat("Rcheck directories found:\n")
@@ -450,7 +422,7 @@ pkg_clean <- function(do = FALSE,
 
     d <- dir(pattern = paste0("^", pkg, ".*[.]tar[.]gz$"))
     if (!silent) {
-        if (!length(d)) 
+        if (!length(d))
             cat("No tarballs found.\n")
         else {
             cat("Tarballs found:\n")
@@ -462,40 +434,39 @@ pkg_clean <- function(do = FALSE,
         if (!silent)
             cat("\n  ... removed.\n")
     }
-    
+
     invisible(ans)
 }
 
 short_fn <- function(x, length = 50) {
-    
+
     if (!length(x))
         return(character(0))
-    
+
     bname <- gsub("(.*)[.][^.]*", "\\1", x)
     ext <- gsub(".*[.]([^.]*)", "\\1", x)
-    
+
     ## make underscore
     chars <- c("[", "]", ".",
                ",", ";", "+",
                "%20", "%2E",
                "(", ")", "&", " ")
-    
     for (ch in chars)
         bname <- gsub(ch, "_", bname, fixed = TRUE)
-    
+
     ## replace single characters
     ## bname <- gsub("[^[:alpha:]][[:alpha:]][^[:alpha:]]", "_", bname)
-    
+
     ## replace multiple _ with a single _
     chars <- c("__*")
     for (ch in chars)
         bname <- gsub(ch, "_", bname)
-    
+
     ## remove patters/chars
     chars <- c("^_", "'", "‘", "’")
     for (ch in chars)
         bname <- gsub(ch, "", bname)
-    
+
     ## replace phrases
     phrases <- c("value-at-risk", "VaR",
                  "volatility", "vol",
@@ -505,18 +476,19 @@ short_fn <- function(x, length = 50) {
                  "ß", "ss")
     for (i in seq(1, length(phrases), by = 2))
         bname <- gsub(phrases[i], phrases[i+1], bname, ignore.case = TRUE)
-    
+
     bname <- substr(bname, 1, length)
-    
+
     ## remove trailing _
     chars <- c("_$")
     for (ch in chars)
         bname <- gsub(ch, "\\1", bname)
-    
+
     paste0(bname, ".", ext)
 }
 
-search_files <- function(search, path, file.pattern = NULL, recursive = TRUE, ...) {
+search_files <- function(search, path, file.pattern = NULL,
+                         recursive = TRUE, ...) {
     files <- dir(path, pattern = file.pattern, recursive = recursive, ...)
     on.exit(getwd())
     setwd(path)
@@ -560,7 +532,7 @@ add_toc <- function(txt, number = FALSE,
     hlines <- grepl(re.header, txt)
     htexts <- trim(gsub(re.header, "\\1", txt[hlines]))
     txt[hlines] <- header(htexts)
-    
+
 }
 
 
@@ -574,8 +546,8 @@ allday_event <- function(date, summary, description = "", file) {
 
     DTSTART <- format(date, "%Y%m%d")
 
-    
-tmp <-     
+
+tmp <-
 "BEGIN:VCALENDAR
 VERSION:2.0
 PRODID: esutils
@@ -601,7 +573,7 @@ END:VCALENDAR"
         invisible(tmp)
     } else
         tmp
-    
+
 }
 
 bib_temp_key <- function(file, encoding = "UTF-8") {
@@ -612,7 +584,7 @@ bib_temp_key <- function(file, encoding = "UTF-8") {
     n <- max(as.numeric(gsub("@[a-zA-Z]+\\{TODO([0-9]+),\\s*$", "\\1", txt[temp_keys])))
 
     missing_keys <- grep("@[a-zA-Z]+\\{,\\s*$", txt)
-    txt[missing_keys] <- 
+    txt[missing_keys] <-
         paste0(gsub("(.*),\\s*$", "\\1", txt[missing_keys]),
                "TODO",
                seq(n + 1, by = 1, length.out = length(missing_keys)),
@@ -620,22 +592,15 @@ bib_temp_key <- function(file, encoding = "UTF-8") {
     writeLines(txt, file)
 }
 
-wait <- function(x) 
+wait <- function(x)
     if (length(x) == 1L)
         Sys.sleep(x) else Sys.sleep(runif(1L, min(x), max(x)))
-
-
-insert <- function(x, list, values) {
-    len <- length(list) * (length(values) - 1L) + length(x)
-    ans <- vector(typeof(x), length = len)
-    seq_len(len)
-}
 
 sw_options <- function(filename) {
 
     txt <- readLines(filename)
     i <- grep("^<<.*>>=\\s?$", txt)
-    
+
     if (any(i)) {
         x <- txt[i]
 
@@ -644,7 +609,7 @@ sw_options <- function(filename) {
         x <- sub("<<(.*)>>=?", "\\1", x)
         x <- strsplit(x, "[[:space:]]*,[[:space:]]*")
         x <- lapply(x, strsplit,  "[[:space:]]*=[[:space:]]*")
-        
+
         x <- lapply(x,
                     function(x) {
             if (length(x) && length(x[[1L]]) == 1)
@@ -660,15 +625,15 @@ sw_options <- function(filename) {
                 ans <- list()
             ans
         })
-        
+
     } else
         list()
 }
 
 sw_names <- function(filename, names.only = FALSE) {
     opts <- sw_options(filename)
-    if (names.only) 
-        unlist(lapply(opts, `[[`, "label"))    
+    if (names.only)
+        unlist(lapply(opts, `[[`, "label"))
 }
 
 insert <- function(x, what, before.index) {
