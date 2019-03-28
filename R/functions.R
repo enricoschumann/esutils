@@ -261,6 +261,9 @@ pkg_build <- function(pkg, parent.dir = ".",
     on.exit(options(crayon.enabled = old.crayon))
     options(crayon.enabled = TRUE)
 
+    if (endsWith(pkg, "/"))
+        pkg <- substr(pkg, 1, nchar(pkg) - 1)
+    
     if (bump.version) {
         ## TODO allow major/minor/patch
         D_file <- file.path(pkg, "DESCRIPTION")
