@@ -263,7 +263,7 @@ pkg_build <- function(pkg, parent.dir = ".",
 
     if (endsWith(pkg, "/"))
         pkg <- substr(pkg, 1, nchar(pkg) - 1)
-    
+
     if (bump.version) {
         ## TODO allow major/minor/patch
         D_file <- file.path(pkg, "DESCRIPTION")
@@ -498,6 +498,22 @@ search_files <- function(search, path, file.pattern = NULL,
     for (f in files) {
         src <- readLines(f, warn = FALSE)
         lines <- grep(search, src)
+        if (length(lines)) {
+            cat(paste0(f, "::", lines, "::", src[lines]), sep = "\n")
+        }
+    }
+    invisible(NULL)
+}
+
+trailing_ws <- function(files, path, file.pattern = NULL,
+                        ws.rx = "\\s+$", recursive = TRUE, ...) {
+    if (missing(files))
+        files <- dir(path, pattern = file.pattern, recursive = recursive, ...)
+    on.exit(setwd(getwd()))
+    setwd(path)
+    for (f in files) {
+        src <- readLines(f, warn = FALSE)
+        lines <- grep(ws.rx, src, perl = TRUE)
         if (length(lines)) {
             cat(paste0(f, "::", lines, "::", src[lines]), sep = "\n")
         }
