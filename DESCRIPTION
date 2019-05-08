@@ -4,10 +4,10 @@ Title: esutils
 Version: 0.1-14
 Date: 2019-05-08
 Maintainer: Enrico Schumann <es@enricoschumann.net>
-Authors@R: person(given = "Enrico", family = "Schumann", 
+Authors@R: person(given = "Enrico", family = "Schumann",
                   role  = c("aut", "cre"),
                   email = "es@enricoschumann.net",
-		  comment = c(ORCID = "0000-0001-7601-6576"))
+                  comment = c(ORCID = "0000-0001-7601-6576"))
 Description: Various Tools.
 License: GPL (>=2)
 SystemRequirements: ssconvert (Gnumeric), pdftotext (Xpdf)
