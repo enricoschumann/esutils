@@ -1,281 +1,287 @@
+2019-05-08  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (local_min, local_max):
+        add functions
+	(git_bundle_build): add function
+
 2019-04-05  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (trailing_ws): add function
+        * R/functions.R (trailing_ws): add function
 
 2019-03-28  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (pkg_build): remove trailing "/"
-	from package name
+        * R/functions.R (pkg_build): remove trailing "/"
+        from package name
 
 2019-03-06  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (pkg_build): suppress warnings
-	about missing test file
+        * R/functions.R (pkg_build): suppress warnings
+        about missing test file
 
 2019-01-18  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (insert): add function
+        * R/functions.R (insert): add function
 
 2018-11-20  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (sw_options, sw_names): add
-	functions
+        * R/functions.R (sw_options, sw_names): add
+        functions
 
 2018-10-29  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (nth): fix nrow => NROW
-	(pkg_build): fix for unit tests with only a
-	single test function
+        * R/functions.R (nth): fix nrow => NROW
+        (pkg_build): fix for unit tests with only a
+        single test function
 
 2018-08-16  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (pkg_build): new argument
-	'keep.source'
+        * R/functions.R (pkg_build): new argument
+        'keep.source'
 
 2018-07-02  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (pkg_build): new argument
-	'bump.date'
+        * R/functions.R (pkg_build): new argument
+        'bump.date'
 
 2018-05-30  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): 0.1-14
+        * DESCRIPTION (Version): 0.1-14
 
-	* R/functions.R (pkg_build): use tools::Rcmd
-	instead of system2; new argument verbose
+        * R/functions.R (pkg_build): use tools::Rcmd
+        instead of system2; new argument verbose
 
 2018-03-10  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (bib_temp_key): add function
+        * R/functions.R (bib_temp_key): add function
 
 2018-02-27  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (allday_event): add function
+        * R/functions.R (allday_event): add function
 
 2018-01-08  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (latest_version): new argument
-	'type'
+        * R/functions.R (latest_version): new argument
+        'type'
 
 2017-11-22  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/bib.R (number_todo): add function
+        * R/bib.R (number_todo): add function
 
 2017-11-14  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (pkg_build): suppress messages
-	when installing
+        * R/functions.R (pkg_build): suppress messages
+        when installing
 
 2017-11-03  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (pkg_build): use 'system2' and
-	return collected messages instead of printing
-	them to the console
+        * R/functions.R (pkg_build): use 'system2' and
+        return collected messages instead of printing
+        them to the console
 
 2017-09-13  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (pkg_build): new argument
-	'show.test.results'
+        * R/functions.R (pkg_build): new argument
+        'show.test.results'
 
 2017-08-30  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): 0.1-13
+        * DESCRIPTION (Version): 0.1-13
 
-	* R/functions.R (here): default of trim is
-	'TRUE'
+        * R/functions.R (here): default of trim is
+        'TRUE'
 
 2017-08-18  Enrico Schumann  <es@enricoschumann.net>
 
-	* NAMESPACE: 'pkg_build' is no longer available
+        * NAMESPACE: 'pkg_build' is no longer available
 
-	* R/functions.R (pkg_build): use resave-data
-	when building a package
+        * R/functions.R (pkg_build): use resave-data
+        when building a package
 
 2017-08-14  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (short_fn): add function
+        * R/functions.R (short_fn): add function
 
 2017-08-11  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): 0.1-12
+        * DESCRIPTION (Version): 0.1-12
 
-	* R/functions.R (pkg_clean): add function
+        * R/functions.R (pkg_clean): add function
 
 2017-08-11  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): 0.1-11
+        * DESCRIPTION (Version): 0.1-11
 
-	* R/functions.R (make_tex): use
-	'requireNamespace("weaver")' instead of
-	'require()'
+        * R/functions.R (make_tex): use
+        'requireNamespace("weaver")' instead of
+        'require()'
 
 2017-08-10  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (pkg_build, build_pkg): update
-	date when bump.version is TRUE; pkg_build is
-	now an alias for build_pkg
+        * R/functions.R (pkg_build, build_pkg): update
+        date when bump.version is TRUE; pkg_build is
+        now an alias for build_pkg
 
 2017-07-14  Enrico Schumann  <es@penricoschumann.net>
 
-	* R/functions.R (here): fixed -- 'guess.type'
-	had been ignored when a table was read (i.e.
-	when 'sep' was specified)
+        * R/functions.R (here): fixed -- 'guess.type'
+        had been ignored when a table was read (i.e.
+        when 'sep' was specified)
 
 2017-07-14  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): 0.1-10
+        * DESCRIPTION (Version): 0.1-10
 
-	* R/functions.R (here): 'stringsAsFactors' is
-	now FALSE per default
-	new argument 'trim';
+        * R/functions.R (here): 'stringsAsFactors' is
+        now FALSE per default
+        new argument 'trim';
 
 2017-06-13  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (build_pkg): new argument
-	'bump.version'
+        * R/functions.R (build_pkg): new argument
+        'bump.version'
 
 2017-05-31  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): 0.1-9
+        * DESCRIPTION (Version): 0.1-9
 
-	* R/functions.R (make_tex): new argument 'sweave'
+        * R/functions.R (make_tex): new argument 'sweave'
 
-	* R/functions.R (build_pkg): add function
+        * R/functions.R (build_pkg): add function
 
 2017-05-10  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (make_tex): new argument 'latexmk'
+        * R/functions.R (make_tex): new argument 'latexmk'
 
 2017-05-09  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): 0.1-8
+        * DESCRIPTION (Version): 0.1-8
 
-	* R/functions.R (make_tex): add function
+        * R/functions.R (make_tex): add function
 
 2017-04-19  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): 0.1-7
+        * DESCRIPTION (Version): 0.1-7
 
-	* R/functions.R (latest_version): add function
+        * R/functions.R (latest_version): add function
 
 2017-01-07  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (header): add function
+        * R/functions.R (header): add function
 
 2016-08-03  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (char2num): add function
+        * R/functions.R (char2num): add function
 
-	* R/functions.R (fun_names): add function, from
-	https://stat.ethz.ch/pipermail/r-package-devel/2016q3/000959.html
+        * R/functions.R (fun_names): add function, from
+        https://stat.ethz.ch/pipermail/r-package-devel/2016q3/000959.html
 
 2016-05-02  Enrico Schumann  <es@enricoschumann.net>
 
         * DESCRIPTION (Version): 0.1-6
 
-	* R/functions.R (here): new arguments 'sep' and
-	'header': with 'sep' specified, the lines read are
-	interpreted as a table (data.frame)
+        * R/functions.R (here): new arguments 'sep' and
+        'header': with 'sep' specified, the lines read are
+        interpreted as a table (data.frame)
 
 2016-02-26  Enrico Schumann  <es@enricoschumann.net>
 
         * DESCRIPTION (Version): 0.1-5
 
-	* R/news_to_rss.R (news_to_rss): function has been moved to
-	NEWSRSS package
+        * R/news_to_rss.R (news_to_rss): function has been moved to
+        NEWSRSS package
 
 2015-12-09  Enrico Schumann  <es@enricoschumann.net>
 
         * DESCRIPTION (Version): 0.1-4
 
-	* R/news_to_rss.R (news_to_rss): new function
+        * R/news_to_rss.R (news_to_rss): new function
 
 2015-10-08  Enrico Schumann  <es@enricoschumann.net>
 
-	* man/map01.Rd: renamed 'min_', 'max_' to 'oman', 'omin'
+        * man/map01.Rd: renamed 'min_', 'max_' to 'oman', 'omin'
 
 2015-07-11  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): Version: 0.1-3
+        * DESCRIPTION (Version): Version: 0.1-3
 
-	* R/functions.R (xy_text): renamed function 'xylabels' to
-	'xy_text'
+        * R/functions.R (xy_text): renamed function 'xylabels' to
+        'xy_text'
 
-	* R/functions.R (map01): renamed/rearranged arguments
+        * R/functions.R (map01): renamed/rearranged arguments
 
 2015-06-17  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): Version: 0.1-2
+        * DESCRIPTION (Version): Version: 0.1-2
 
-	* NAMESPACE: added function 'TODO'
+        * NAMESPACE: added function 'TODO'
 
 2015-06-05  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/xylabels.R (xylabels): coerce 'x' and 'y' to numeric (else the
-	function would not work, for instance, with Date axes)
-	(xylabels): coordinates are now returned invisibly
+        * R/xylabels.R (xylabels): coerce 'x' and 'y' to numeric (else the
+        function would not work, for instance, with Date axes)
+        (xylabels): coordinates are now returned invisibly
 
 2015-05-15  Enrico Schumann  <es@enricoschumann.net>
 
-	* NAMESPACE: moved convertDate to package 'datetimeutils'
+        * NAMESPACE: moved convertDate to package 'datetimeutils'
 
 2015-03-21  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): Version: 0.1-1
+        * DESCRIPTION (Version): Version: 0.1-1
 
-	* R/here.R (here): new function
+        * R/here.R (here): new function
 
 2015-03-02  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/xylabels.R (xylabels): new function
+        * R/xylabels.R (xylabels): new function
 
 2014-12-02  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/ss2csv.R (ss2csv): shQuote in/out filename
+        * R/ss2csv.R (ss2csv): shQuote in/out filename
 
 2014-09-24  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): Version: 0.1-0
+        * DESCRIPTION (Version): Version: 0.1-0
 
-	* R/convertDate.R (convertDate): 'fraction' is now also supported
-	for 'excel', and there is a new argument 'tz'
+        * R/convertDate.R (convertDate): 'fraction' is now also supported
+        for 'excel', and there is a new argument 'tz'
 
 2014-09-23  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/ij.R (ij_i): new functions 'ij_i' and 'i_ij'
+        * R/ij.R (ij_i): new functions 'ij_i' and 'i_ij'
 
 2014-09-18  Enrico Schumann  <es@enricoschumann.net>
 
-	* man/convertDate.Rd: expanded docs
+        * man/convertDate.Rd: expanded docs
 
 2014-08-12  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): Version: 0.0-5
+        * DESCRIPTION (Version): Version: 0.0-5
 
-	* R/nth.R (nth): if 'x' is a matrix, rows are selected
+        * R/nth.R (nth): if 'x' is a matrix, rows are selected
 
 2014-08-04  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): Version: 0.0-4
+        * DESCRIPTION (Version): Version: 0.0-4
 
-	* R/pdf2txt.R (pdf2txt): new argument 'layout'
+        * R/pdf2txt.R (pdf2txt): new argument 'layout'
 
 2014-07-31  Enrico Schumann  <es@enricoschumann.net>
 
-	* man/nth.Rd: added file
+        * man/nth.Rd: added file
 
-	* DESCRIPTION (Maintainer): corrected email
+        * DESCRIPTION (Maintainer): corrected email
 
-	* DESCRIPTION (Version): Version: 0.0-3
+        * DESCRIPTION (Version): Version: 0.0-3
 
-	* R/pdf2txt.R (pdf2txt): added function
+        * R/pdf2txt.R (pdf2txt): added function
 
 2014-07-17  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): Version: 0.0-2
+        * DESCRIPTION (Version): Version: 0.0-2
 
-	* R/nth.R: added function
+        * R/nth.R: added function
 
 2014-06-30  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): Version: 0.0-1
+        * DESCRIPTION (Version): Version: 0.0-1

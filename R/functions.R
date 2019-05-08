@@ -668,3 +668,54 @@ insert <- function(x, what, before.index) {
     ans[-before.index] <- x
     ans
 }
+
+local_min <- function(x, k = 10, min.d = 0) {
+    ans <- NULL
+    for (i in (k+1):(length(x)-k))
+        if (all(x[i] + min.d < x[c(i - 1:k, i + 1:k)]))
+            ans <- c(ans, i)   
+    ans
+}
+
+local_max <- function(x, k = 10, min.d = 0) {
+    ans <- NULL
+    for (i in (k+1):(length(x)-k))
+        if (all(x[i] - min.d > x[c(i - 1:k, i + 1:k)]))
+            ans <- c(ans, i)   
+    ans
+}
+
+git_bundle_build <- function(repos, output.filenames, output.dir) {
+    if (!dir.exists(output.dir)) {
+        ans <- askYesNo("Create directory?")
+        if (is.na(ans) || !ans)
+            return(invisible(NULL))
+        else
+            dir.create(path.expand(output.dir))
+    }
+    on.exit(setwd(getwd()))
+    for (i in seq_along(repos)) {
+        setwd(repos[i])
+        
+        bundle <- paste0(
+            strftime(Sys.time(), "%Y%m%d_%H%M%S__"),
+            "temp.bundle")
+        system2("git",
+                c("bundle", "create", bundle,
+                  "master", "--tags"))
+
+        out.file <- paste0(output.filenames[i], ".bundle")
+        file.copy(bundle, file.path(output.dir, out.file),
+                  overwrite = TRUE)
+
+        out.file <- paste0(
+            strftime(Sys.time(), "%Y%m%d_%H%M%S__"),
+            output.filenames[i],
+            ".bundle")
+        file.copy(bundle, file.path(output.dir, out.file),
+                  overwrite = TRUE)
+
+        ignore <- file.remove(bundle)
+    }
+    invisible(NULL)
+}
