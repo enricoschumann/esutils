@@ -1,8 +1,18 @@
+2019-05-10  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): 0.1-15
+
+2019-05-09  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (local_min, local_max): move
+        functions to package 'technical' (and rename to
+        .local_min, .local_max)
+
 2019-05-08  Enrico Schumann  <es@enricoschumann.net>
 
         * R/functions.R (local_min, local_max):
         add functions
-	(git_bundle_build): add function
+        (git_bundle_build): add function
 
 2019-04-05  Enrico Schumann  <es@enricoschumann.net>
 

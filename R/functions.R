@@ -669,22 +669,6 @@ insert <- function(x, what, before.index) {
     ans
 }
 
-local_min <- function(x, k = 10, min.d = 0) {
-    ans <- NULL
-    for (i in (k+1):(length(x)-k))
-        if (all(x[i] + min.d < x[c(i - 1:k, i + 1:k)]))
-            ans <- c(ans, i)   
-    ans
-}
-
-local_max <- function(x, k = 10, min.d = 0) {
-    ans <- NULL
-    for (i in (k+1):(length(x)-k))
-        if (all(x[i] - min.d > x[c(i - 1:k, i + 1:k)]))
-            ans <- c(ans, i)   
-    ans
-}
-
 git_bundle_build <- function(repos, output.filenames, output.dir) {
     if (!dir.exists(output.dir)) {
         ans <- askYesNo("Create directory?")
@@ -696,7 +680,7 @@ git_bundle_build <- function(repos, output.filenames, output.dir) {
     on.exit(setwd(getwd()))
     for (i in seq_along(repos)) {
         setwd(repos[i])
-        
+
         bundle <- paste0(
             strftime(Sys.time(), "%Y%m%d_%H%M%S__"),
             "temp.bundle")
