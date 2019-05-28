@@ -669,7 +669,9 @@ insert <- function(x, what, before.index) {
     ans
 }
 
-git_bundle_build <- function(repos, output.filenames, output.dir) {
+git_bundle_create <- function(repos, output.filenames,
+                              output.dir,
+                              dated.bundle = TRUE) {
     if (!dir.exists(output.dir)) {
         ans <- askYesNo("Create directory?")
         if (is.na(ans) || !ans)
@@ -680,26 +682,53 @@ git_bundle_build <- function(repos, output.filenames, output.dir) {
     on.exit(setwd(getwd()))
     for (i in seq_along(repos)) {
         setwd(repos[i])
-
+        message(repos[i], "\n",
+                " =>\n",
+                "    ", output.filenames[i], "\n")
+        
         bundle <- paste0(
             strftime(Sys.time(), "%Y%m%d_%H%M%S__"),
             "temp.bundle")
         system2("git",
                 c("bundle", "create", bundle,
-                  "master", "--tags"))
+                  "--branches", "--tags"))
 
         out.file <- paste0(output.filenames[i], ".bundle")
         file.copy(bundle, file.path(output.dir, out.file),
                   overwrite = TRUE)
 
-        out.file <- paste0(
-            strftime(Sys.time(), "%Y%m%d_%H%M%S__"),
-            output.filenames[i],
-            ".bundle")
-        file.copy(bundle, file.path(output.dir, out.file),
-                  overwrite = TRUE)
+        if (dated.bundle) {
+            out.file <- paste0(
+                strftime(Sys.time(), "%Y%m%d_%H%M%S__"),
+                output.filenames[i],
+                ".bundle")
+            file.copy(bundle, file.path(output.dir, out.file),
+                      overwrite = TRUE)
+        }
 
         ignore <- file.remove(bundle)
     }
     invisible(NULL)
+}
+
+git_bundle_pull <- function(bundle, target) {
+
+    if (!dir.exists(target))
+        stop("'target' does not exist. Maybe clone?")
+
+    on.exit(setwd(getwd()))
+
+    setwd(target)
+    system2("git", c("pull", bundle))
+}
+
+git_bundle_clone <- function(bundle, dir.name, parent.dir) {
+
+    if (dir.exists(file.path(parent.dir, dir.name)))
+        stop("'dir.name' already exists. Maybe pull?")
+
+    on.exit(setwd(getwd()))
+
+    setwd(parent.dir)
+    system2("git", c("clone", "-b", "master", bundle, dir.name))
 }

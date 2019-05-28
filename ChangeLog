@@ -1,6 +1,12 @@
+2019-05-28  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (git_bundle_pull): add function
+        (git_bundle_build => git_bundle_create): rename
+        function
+
 2019-05-10  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): 0.1-15
+        * DESCRIPTION (Version): 0.1-15
 
 2019-05-09  Enrico Schumann  <es@enricoschumann.net>
 
