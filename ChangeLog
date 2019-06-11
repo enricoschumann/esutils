@@ -1,3 +1,8 @@
+2019-06-11  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (git_bundle_pull): new argument
+	'branch', with default "master"
+
 2019-05-28  Enrico Schumann  <es@enricoschumann.net>
 
         * R/functions.R (git_bundle_pull): add function
