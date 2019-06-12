@@ -681,11 +681,14 @@ git_bundle_create <- function(repos, output.filenames,
     }
     on.exit(setwd(getwd()))
     for (i in seq_along(repos)) {
-        setwd(repos[i])
         message(repos[i], "\n",
-                " =>\n",
-                "    ", output.filenames[i], "\n")
+                " =>\n")
+        if (!dir.exists(repos[i]))
+            message("    repository does not exist => skip")
+        else
+            message("    ", output.filenames[i], "\n")
 
+        setwd(repos[i])
         bundle <- paste0(
             strftime(Sys.time(), "%Y%m%d_%H%M%S__"),
             "temp.bundle")
