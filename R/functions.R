@@ -682,7 +682,7 @@ git_bundle_create <- function(repos, output.filenames,
     on.exit(setwd(getwd()))
     for (i in seq_along(repos)) {
         message(repos[i], "\n",
-                " =>\n")
+                " =>")
         if (!dir.exists(repos[i]))
             message("    repository does not exist => skip")
         else
@@ -695,6 +695,7 @@ git_bundle_create <- function(repos, output.filenames,
         system2("git",
                 c("bundle", "create", bundle,
                   "--branches", "--tags"))
+        message("")
 
         out.file <- paste0(output.filenames[i], ".bundle")
         file.copy(bundle, file.path(output.dir, out.file),
@@ -722,7 +723,7 @@ git_bundle_pull <- function(bundle, target, branch = "master") {
     on.exit(setwd(getwd()))
 
     setwd(target)
-    system2("git", c("pull", bundle), branch)
+    system2("git", c("pull", bundle, branch))
 }
 
 git_bundle_clone <- function(bundle, dir.name, parent.dir) {
