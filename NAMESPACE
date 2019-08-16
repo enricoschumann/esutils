@@ -8,6 +8,9 @@ importFrom("utils",
 importFrom("tools",
            "Rcmd")
 
+importFrom("zoo",
+           "coredata")
+
 importFrom("textutils",
            "trim",
            "here",
@@ -38,4 +41,5 @@ export(
     "search_files",
     "short_fn",
     "ss2csv",
-    "xy_text")
+    "xy_text",
+    "zoo2array")

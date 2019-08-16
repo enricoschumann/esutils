@@ -736,3 +736,11 @@ git_bundle_clone <- function(bundle, dir.name, parent.dir) {
     setwd(parent.dir)
     system2("git", c("clone", "-b", "master", bundle, dir.name))
 }
+
+zoo2array <- function(z) {
+
+    paste0("[new Date(",
+           dQuote(format(zoo::index(z), "%Y/%m/%d %H:%M:%S"), FALSE),
+           "),",
+           zoo::coredata(z), "],")
+}
