@@ -554,47 +554,6 @@ add_toc <- function(txt, number = FALSE,
 
 }
 
-
-eol <- "\r\n"
-fold <- "\r\n "
-
-allday_event <- function(date, summary, description = "", file) {
-
-    UID <- paste0(mailtools:::msgID(), ".", Sys.info()["nodename"])
-    DTSTAMP <- format(as.POSIXlt(Sys.time(), tz = "UTC"), "%Y%m%dT%H%M%SZ")
-
-    DTSTART <- format(date, "%Y%m%d")
-
-
-tmp <-
-"BEGIN:VCALENDAR
-VERSION:2.0
-PRODID: esutils
-BEGIN:VEVENT
-UID:{UID}
-DTSTAMP:{DTSTAMP}
-DTSTART;VALUE=DATE:{DTSTART}
-SUMMARY:{SUMMARY}
-DESCRIPTION:{DESCRIPTION}
-END:VEVENT
-END:VCALENDAR"
-
-    tmp <- fill_in(tmp,
-                   UID = UID,
-                   DTSTAMP = DTSTAMP,
-                   DTSTART = DTSTART,
-                   SUMMARY = summary,
-                   DESCRIPTION = description)
-    tmp <- strsplit(tmp, "\n", fixed = TRUE)[[1L]]
-    tmp <- paste(tmp, collapse = eol)
-    if (!missing(file)) {
-        writeLines(tmp, file)
-        invisible(tmp)
-    } else
-        tmp
-
-}
-
 bib_temp_key <- function(file, encoding = "UTF-8") {
 
     txt <- readLines(file, encoding = encoding)

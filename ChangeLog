@@ -1,11 +1,16 @@
+2019-10-16  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R: move iCalendar code to
+        new package 'ical.utils'
+
 2019-08-16  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (zoo2array): add function
+        * R/functions.R (zoo2array): add function
 
 2019-06-20  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (git_bundle_pull): fix
-	command-line arguments
+        * R/functions.R (git_bundle_pull): fix
+        command-line arguments
 
 2019-06-12  Enrico Schumann  <es@enricoschumann.net>
 
