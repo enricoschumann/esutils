@@ -3,7 +3,9 @@ importFrom("graphics",
 
 importFrom("utils",
            "capture.output", "read.table", "type.convert",
-           "Sweave", "browseURL")
+           "Sweave", "browseURL", "askYesNo")
+
+importFrom("stats", "runif")
 
 importFrom("tools",
            "Rcmd")

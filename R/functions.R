@@ -230,7 +230,7 @@ make_tex <- function(fn, sweave = TRUE, weaver = FALSE,
                      encoding = "utf8", latexmk = FALSE) {
     ## encoding "" is default for Sweave
     if (sweave)
-        if (weaver && require("weaver"))
+        if (weaver && requireNamespace("weaver"))
             Sweave(fn, encoding = "utf8",
                    driver = weaver::weaver())
         else
@@ -473,10 +473,10 @@ short_fn <- function(x, length = 50) {
     ## replace phrases
     phrases <- c("value-at-risk", "VaR",
                  "volatility", "vol",
-                 "ä", "ae",
-                 "ö", "oe",
-                 "ü", "ue",
-                 "ß", "ss")
+                 "\\u00e4", "ae",
+                 "\\u00f6", "oe",
+                 "\\u00fc", "ue",
+                 "\\u00df", "ss")
     for (i in seq(1, length(phrases), by = 2))
         bname <- gsub(phrases[i], phrases[i+1], bname, ignore.case = TRUE)
 
