@@ -782,3 +782,45 @@ x
                             head = "",
                             body = "...") {
 }
+
+clean_ltx <-
+function(rm = FALSE,
+         path = ".",
+         recursive = FALSE,
+         patterns = c("[.]log$",
+                      "[.]aux$",
+                      "[.]out$",
+                      "[.]bbl$",
+                      "[.]bcf$",
+                      "[.]blg$",
+                      "[.]run[.]xml$",
+                      "[.]fdb_latexmk$",
+                      "[.]fls$"),
+         rm.auto = TRUE,
+         ignore.case = FALSE) {
+
+    files <- dir(path = path,
+                 pattern = paste0(patterns, collapse = "|"),
+                 full.names = TRUE, recursive = recursive,
+                 ignore.case = ignore.case)
+    ans <- 0
+    if (rm) {
+        if (rm.auto &&
+            "auto" %in% dir() &&
+            file.info("auto")$isdir)
+            unlink("auto", recursive = TRUE)
+
+        ans <- file.remove(files)
+        if (any(!ans)) {
+            e.files <- paste0(paste0("  ", files[!ans]), collapse = "\n")
+            warning("files could not be deleted\n",
+                    e.files)
+        }
+        invisible(sum(ans))
+    } else {
+        if (length(files))
+            files
+        else
+            invisible(0)
+    }
+}

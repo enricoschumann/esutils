@@ -1,3 +1,9 @@
+2020-01-29  Enrico Schumann  <es@enricoschumann.net>
+
+        * DESCRIPTION (Version): 0.1-27
+
+        * R/functions.R (clean_ltx): add function
+
 2019-12-27  Enrico Schumann  <es@enricoschumann.net>
 
         * DESCRIPTION (Version): 0.1-26
