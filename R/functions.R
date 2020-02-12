@@ -788,7 +788,7 @@ function(rm = FALSE,
          path = ".",
          recursive = FALSE,
          patterns = c("[.]~$",
-                      "[.]_$"
+                      "[.]_$",
                       "[.]aux$",
                       "[.]bbl$",
                       "[.]bcf$",
@@ -826,4 +826,36 @@ function(rm = FALSE,
         else
             invisible(0)
     }
+}
+
+old_files <- function(min.age = 365,
+                      path = ".",
+                      recursive = FALSE,
+                      min.age.monthend = NULL,
+                      min.age.yearend = NULL,
+                      min.age.unit = "days") {
+
+    files <- dir(path, recursive = recursive)
+    age <- rep(NA, length(files))
+    dates <- rep(Sys.Date(), length(files)) + NA
+
+    ## YYYYMMDD
+    i <- grepl("(?<![0-9])[12][0-9]{3}[0-9]{2}[0-9]{2}(?![0-9])",
+               files, perl = TRUE)
+    d <- gsub(".*(?<![0-9])([12][0-9]{3}[0-9]{2}[0-9]{2})(?![0-9]).*",
+              "\\1", files[i], perl = TRUE)
+    d <- as.Date(d, "%Y%m%d")
+    dates[i] <- d
+    age[i] <- as.numeric(Sys.Date() - d)
+
+    ## YYYY-MM-DD
+    i <- grepl("(?<![0-9])[12][0-9]{3}[0-9]{2}[0-9]{2}(?![0-9])",
+               files, perl = TRUE)
+    d <- gsub(".*(?<![0-9])([12][0-9]{3}[0-9]{2}[0-9]{2})(?![0-9]).*",
+              "\\1", files[i], perl = TRUE)
+    d <- as.Date(d, "%Y%m%d")
+    dates[i] <- d
+    age[i] <- as.numeric(Sys.Date() - d)
+
+    files[!is.na(age) & age >= min.age]
 }
