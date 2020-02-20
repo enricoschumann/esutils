@@ -698,9 +698,9 @@ git_bundle_clone <- function(bundle, dir.name, parent.dir) {
 
 zoo2array <- function(z) {
 
-    paste0("[new Date(",
-           dQuote(format(zoo::index(z), "%Y/%m/%d %H:%M:%S"), FALSE),
-           "),",
+    paste0("[new Date(\"",
+           format(zoo::index(z), "%Y/%m/%d %H:%M:%S"),
+           "\"),",
            zoo::coredata(z), "],")
 }
 
