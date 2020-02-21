@@ -1,6 +1,11 @@
+2020-02-21  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (old_files): support
+        'min.age.monthend' and 'min.age.yearend'
+
 2020-02-12  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (old_files): add function
+        * R/functions.R (old_files): add function
 
 2020-01-29  Enrico Schumann  <es@enricoschumann.net>
 

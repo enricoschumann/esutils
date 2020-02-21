@@ -836,26 +836,24 @@ old_files <- function(min.age = 365,
                       min.age.unit = "days") {
 
     files <- dir(path, recursive = recursive)
-    age <- rep(NA, length(files))
-    dates <- rep(Sys.Date(), length(files)) + NA
+    dates <- datetimeutils::guess_datetime(
+                                files, date.only = TRUE, within = TRUE)
 
-    ## YYYYMMDD
-    i <- grepl("(?<![0-9])[12][0-9]{3}[0-9]{2}[0-9]{2}(?![0-9])",
-               files, perl = TRUE)
-    d <- gsub(".*(?<![0-9])([12][0-9]{3}[0-9]{2}[0-9]{2})(?![0-9]).*",
-              "\\1", files[i], perl = TRUE)
-    d <- as.Date(d, "%Y%m%d")
-    dates[i] <- d
-    age[i] <- as.numeric(Sys.Date() - d)
+    i <- order(dates)
+    files <- files[i]
+    dates <- dates[i]
+    age <- as.numeric(Sys.Date() - dates)
+    old <- age >= min.age
 
-    ## YYYY-MM-DD
-    i <- grepl("(?<![0-9])[12][0-9]{3}[0-9]{2}[0-9]{2}(?![0-9])",
-               files, perl = TRUE)
-    d <- gsub(".*(?<![0-9])([12][0-9]{3}[0-9]{2}[0-9]{2})(?![0-9]).*",
-              "\\1", files[i], perl = TRUE)
-    d <- as.Date(d, "%Y%m%d")
-    dates[i] <- d
-    age[i] <- as.numeric(Sys.Date() - d)
-
-    files[!is.na(age) & age >= min.age]
+    if (!is.null(min.age.monthend)) {
+        by <- format(dates, "%Y-%m")
+        i <- PMwR:::last(dates, by = by, index = TRUE)
+        old[i] <- age[i] >= min.age.monthend
+    }
+    if (!is.null(min.age.yearend)) {
+        by <- format(dates, "%Y-%m")
+        i <- PMwR:::last(dates, by = by, index = TRUE)
+        old[i] <- age[i] >= min.age.yearend
+    }
+    files[ !is.na(old) & old ]
 }
