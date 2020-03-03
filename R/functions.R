@@ -833,9 +833,11 @@ old_files <- function(min.age = 365,
                       recursive = FALSE,
                       min.age.monthend = NULL,
                       min.age.yearend = NULL,
-                      min.age.unit = "days") {
+                      min.age.unit = "days",
+                      full.names = FALSE) {
 
-    files <- dir(path, recursive = recursive)
+    files <- dir(path, recursive = recursive,
+                 full.names = full.names)
     dates <- datetimeutils::guess_datetime(
                                 files, date.only = TRUE, within = TRUE)
 

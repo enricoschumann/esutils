@@ -36,6 +36,7 @@ export(
     "map01",
     "matrix_image",
     "nth",
+    "old_files",
     "pdf2txt",
     "pkg_build",
     "pkg_clean",
