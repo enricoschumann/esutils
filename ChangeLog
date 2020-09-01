@@ -1,3 +1,7 @@
+2020-09-01  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (flatten): add function
+
 2020-02-21  Enrico Schumann  <es@enricoschumann.net>
 
         * R/functions.R (old_files): support

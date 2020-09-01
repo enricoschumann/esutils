@@ -859,3 +859,14 @@ old_files <- function(min.age = 365,
     }
     files[ !is.na(old) & old ]
 }
+
+flatten <- function(dir, out.dir, pattern = NULL) {
+    files <- list.files(dir, full.names = TRUE, recursive = TRUE,
+                        pattern = pattern)
+    new.files <- make.unique(basename(files), sep = "_")
+    copied <- file.copy(files,
+                        file.path(out.dir, new.files))
+    if (any(!copied))
+        warning("could not copy ", files[!copied])
+    invisible(sum(copied))
+}
