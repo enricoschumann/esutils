@@ -859,3 +859,10 @@ old_files <- function(min.age = 365,
     }
     files[ !is.na(old) & old ]
 }
+
+cache_object <- function(object, filename, path, binary = TRUE,
+                         use.global.env = FALSE) {
+    
+
+
+}
