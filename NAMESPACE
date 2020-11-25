@@ -26,6 +26,7 @@ importFrom("crayon",
 export(
     "TODO",
     "char2num",
+    "flatten",
     "git_bundle_clone",
     "git_bundle_create",
     "git_bundle_pull",
