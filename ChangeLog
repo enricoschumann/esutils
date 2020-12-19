@@ -1,6 +1,13 @@
+2020-12-19  Enrico Schumann  <es@enricoschumann.net>
+
+	* DESCRIPTION (Version): 0.1-29
+
+        * R/functions.R (old_files): add arguments 'pattern' and
+        'ignore.case'
+
 2020-09-01  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (flatten): add function
+        * R/functions.R (flatten): add function
 
 2020-02-21  Enrico Schumann  <es@enricoschumann.net>
 

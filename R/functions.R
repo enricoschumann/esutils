@@ -830,6 +830,8 @@ function(rm = FALSE,
 
 old_files <- function(min.age = 365,
                       path = ".",
+                      pattern = NULL,
+                      ignore.case = FALSE,
                       recursive = FALSE,
                       min.age.monthend = NULL,
                       min.age.yearend = NULL,
@@ -837,7 +839,8 @@ old_files <- function(min.age = 365,
                       full.names = FALSE) {
 
     files <- dir(path, recursive = recursive,
-                 full.names = full.names)
+                 full.names = full.names,
+                 pattern = pattern, ignore.case = FALSE)
     dates <- datetimeutils::guess_datetime(
                                 files, date.only = TRUE, within = TRUE)
 
@@ -862,7 +865,7 @@ old_files <- function(min.age = 365,
 
 cache_object <- function(object, filename, path, binary = TRUE,
                          use.global.env = FALSE) {
-    
+
 }
 
 flatten <- function(dir, out.dir, pattern = NULL) {
