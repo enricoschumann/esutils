@@ -1,6 +1,10 @@
+2021-01-07  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (clean_ltx): add more file extensions
+
 2020-12-19  Enrico Schumann  <es@enricoschumann.net>
 
-	* DESCRIPTION (Version): 0.1-29
+        * DESCRIPTION (Version): 0.1-29
 
         * R/functions.R (old_files): add arguments 'pattern' and
         'ignore.case'
