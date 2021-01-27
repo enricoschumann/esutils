@@ -1,8 +1,8 @@
 Package: esutils
 Type: Package
 Title: esutils
-Version: 0.1-33
-Date: 2021-01-07
+Version: 0.1-34
+Date: 2021-01-27
 Maintainer: Enrico Schumann <es@enricoschumann.net>
 Authors@R: person(given = "Enrico", family = "Schumann",
                   role  = c("aut", "cre"),
@@ -11,6 +11,6 @@ Authors@R: person(given = "Enrico", family = "Schumann",
 Description: Various Tools.
 License: GPL (>=2)
 SystemRequirements: ssconvert (Gnumeric), pdftotext (Xpdf)
-Imports: crayon, graphics, textutils, tools, utils, zoo
+Imports: crayon, graphics, textutils, tools, utils, zip, zoo
 Suggests: weaver
 URL: http://enricoschumann.net/esutils/

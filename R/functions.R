@@ -886,3 +886,38 @@ flatten <- function(dir, out.dir, pattern = NULL) {
         warning("could not copy ", files[!copied])
     invisible(sum(copied))
 }
+
+create_backup <- function(dir.to.backup,
+                          backup.filename.dir,
+                          backup.filename = NULL,
+                          exclude = NULL) {
+
+    if (is.null(backup.filename))
+        backup.filename <- format(Sys.time(), "%Y%m%d_%H%M%S.zip")
+
+    zip.file <- path.expand(file.path(backup.filename.dir,
+                                      backup.filename))
+
+    ans <- zip::zip(zipfile = zip.file,
+                    files = path.expand(
+                        list.files(dir.to.backup,
+                                   all.files = TRUE,
+                                   include.dirs = FALSE,
+                                   recursive = TRUE)),
+                    recurse = TRUE,
+                    compression_level = 9,
+                    mode = "mirror",
+                    root = path.expand(dir.to.backup))
+    invisible(ans)
+}
+
+extract_backup <- function(backup.filename,
+                           files = NULL,
+                           exdir = ".",
+                           overwrite = TRUE) {
+    ans <- zip::unzip(backup.filename,
+                      exdir = path.expand(exdir),
+                      files = files,
+                      overwrite = TRUE)
+    invisible(ans)
+}
