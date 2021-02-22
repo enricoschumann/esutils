@@ -26,6 +26,8 @@ importFrom("crayon",
 export(
     "TODO",
     "char2num",
+    "clean_dir",
+    "clean_ltx",
     "create_backup",
     "extract_backup",
     "flatten",

@@ -307,14 +307,14 @@ pkg_build <- function(pkg, parent.dir = ".",
     if (run.tests) {
         if (verbose)
             message("Running tests ... ", appendLF = FALSE)
-        Sys.setenv("ES_PACKAGE_TESTING" = TRUE)
+        Sys.setenv("ES_R_PACKAGE_TESTING_73179826243954" = TRUE)
         ans <- suppressWarnings(
             try(source(file.path(pkg,
                                  "inst",
                                  "unitTests",
                                  "runTests.R")),
                    silent = TRUE))
-        Sys.setenv("ES_PACKAGE_TESTING" = FALSE)
+        Sys.setenv("ES_R_PACKAGE_TESTING_73179826243954" = FALSE)
         if (inherits(ans, "try-error")) {
             message(sQuote("run.tests"),
                     " is TRUE but no unit tests found ... ",
@@ -836,6 +836,60 @@ function(rm = FALSE,
     }
 }
 
+clean_dir <-
+function(rm = FALSE,
+         path = ".",
+         recursive = FALSE,
+         patterns = c("~$",
+                      "_$",
+                      "[.]aux$",
+                      "[.]bbl$",
+                      "[.]bcf$",
+                      "[.]blg$",
+                      "[.]fdb_latexmk$",
+                      "[.]idx$",
+                      "[.]ind$",
+                      "[.]ilg$",
+                      "[.]log$",
+                      "[.]loe$",
+                      "[.]lof$",
+                      "[.]out$",
+                      "[.]run[.]xml$",
+                      "[.]toc$",
+                      "[.]fls$",
+                      "[.]upa$",
+                      "[.]upb$",
+                      "[.]xmpi$",
+                      "^Rplots.pdf$"),
+         rm.auto = TRUE,
+         ignore.case = FALSE) {
+
+    files <- dir(path = path,
+                 pattern = paste0(patterns, collapse = "|"),
+                 full.names = TRUE, recursive = recursive,
+                 ignore.case = ignore.case)
+    ans <- 0
+    if (rm) {
+        if (rm.auto &&
+            "auto" %in% dir() &&
+            file.info("auto")$isdir)
+            unlink("auto", recursive = TRUE)
+
+        ans <- file.remove(files)
+        if (any(!ans)) {
+            e.files <- paste0(paste0("  ", files[!ans]), collapse = "\n")
+            warning("files could not be deleted\n",
+                    e.files)
+        }
+        invisible(sum(ans))
+    } else {
+        if (length(files))
+            files
+        else
+            invisible(0)
+    }
+}
+
 old_files <- function(min.age = 365,
                       path = ".",
                       pattern = NULL,
@@ -890,20 +944,37 @@ flatten <- function(dir, out.dir, pattern = NULL) {
 create_backup <- function(dir.to.backup,
                           backup.filename.dir,
                           backup.filename = NULL,
-                          exclude = NULL) {
+                          exclude = NULL,
+                          ignore.case = FALSE) {
 
-    if (is.null(backup.filename))
-        backup.filename <- format(Sys.time(), "%Y%m%d_%H%M%S.zip")
+    backup.filename <-
+        paste0(format(Sys.time(), "%Y%m%d_%H%M%S"),
+               if (!is.null(backup.filename)) "__",
+               backup.filename, ".zip")
 
     zip.file <- path.expand(file.path(backup.filename.dir,
                                       backup.filename))
 
+    files <- path.expand(
+        list.files(dir.to.backup,
+                   all.files = TRUE,
+                   include.dirs = FALSE,
+                   recursive = TRUE))
+    missing.files <- !file.exists(file.path(dir.to.backup,files))
+    if (any(missing.files)) {
+        warning("some files do not exist")
+        files <- files[!missing.files]
+    }
+
+    if (length(exclude)) {
+        for (pattern in exclude) {
+            x <- grepl(pattern, files, ignore.case = ignore.case)
+            files <- files[!x]
+        }
+    }
+
     ans <- zip::zip(zipfile = zip.file,
-                    files = path.expand(
-                        list.files(dir.to.backup,
-                                   all.files = TRUE,
-                                   include.dirs = FALSE,
-                                   recursive = TRUE)),
+                    files = files,
                     recurse = TRUE,
                     compression_level = 9,
                     mode = "mirror",
