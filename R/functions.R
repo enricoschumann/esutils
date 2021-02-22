@@ -251,7 +251,8 @@ pkg_build <- function(pkg, parent.dir = ".",
                       bump.date = FALSE,
                       resave.data = TRUE,
                       show.test.results = TRUE,
-                      verbose = TRUE) {
+                      verbose = TRUE,
+                      use.crayon = FALSE) {
 
     cwd <- getwd()
     on.exit(setwd(cwd))
@@ -261,6 +262,9 @@ pkg_build <- function(pkg, parent.dir = ".",
     on.exit(options(crayon.enabled = old.crayon))
     options(crayon.enabled = TRUE)
 
+    if (!use.crayon)
+        green <- red <- identity
+    
     if (endsWith(pkg, "/"))
         pkg <- substr(pkg, 1, nchar(pkg) - 1)
 

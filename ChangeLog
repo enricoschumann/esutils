@@ -3,6 +3,10 @@
         * R/functions.R (pkg_build): make name of env
         variable less likely
 
+2021-02-17  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (pkg_build): add argument 'use.crayon'
+
 2021-01-27  Enrico Schumann  <es@enricoschumann.net>
 
         * DESCRIPTION (Version): 0.1-34
