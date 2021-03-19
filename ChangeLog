@@ -1,3 +1,16 @@
+2021-03-19  Enrico Schumann  <es@enricoschumann.net>
+
+        * DESCRIPTION (Version): 0.2-0
+
+2021-03-18  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (short_fn): use 'iconv' to onvert to
+        ASCII instead of replacing specific characters
+
+        * DESCRIPTION (Suggests): add 'tinytest'
+
+        * R/functions.R (old_files): fix "min.age.yearend"
+
 2021-02-22  Enrico Schumann  <es@enricoschumann.net>
 
         * R/functions.R (pkg_build): make name of env

@@ -11,36 +11,55 @@
 }
 \usage{
     pkg_build(pkg, parent.dir = ".", check = FALSE,
-              build.vignettes = TRUE, 
+              build.vignettes = TRUE,
               run.tests = TRUE, install = FALSE,
-              clean = FALSE, bump.version = FALSE) 
-    latest_version(pkg, path = ".") 
+              keep.source = FALSE,
+              clean = FALSE,
+              bump.version = FALSE,
+              bump.date = FALSE,
+              resave.data = TRUE,
+              show.test.results = TRUE,
+              verbose = TRUE,
+              use.crayon = FALSE)
+    latest_version(pkg, path = ".", type = "source")
 }
 \arguments{
-  \item{x}{
-    a vector (or a list)
-}
-  \item{n}{
-    an integer
-}
-  \item{first}{
-    where to start
-}
+  \item{pkg}{
+    package name
+  }
+  \item{parent.dir}{
+    a string: the path in which the source directories reside
+  }
+  \item{type}{
+    string: \code{source} or \code{zip}
+  }
 }
 \details{
 
-    \code{pkg_build}
+  \code{pkg_build} builds a package from a source directory, and
+  optionally checks and installs it.
+
 }
 \value{
-  a vector (or a list)
+  a character vector, insisibly
 }
 \author{
   Enrico Schumann
 }
-\seealso{
-  \code{\link{Extract}}
-}
+%% \seealso{
+%%   \code{\link{Extract}}
+%% }
 \examples{
-nth(1:20, 2, 1)
-nth(1:20, 2, 2)
+\donttest{
+basedir <- "~/Packages"
+packages <- c("NMOF", "PMwR")
+
+for (p in packages)
+    pkg_build(pkg = p,
+              parent.dir = basedir,
+              install = TRUE,
+              check = TRUE,
+              clean = FALSE,
+              keep.source = TRUE)
+}
 }

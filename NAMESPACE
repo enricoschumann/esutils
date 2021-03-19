@@ -13,6 +13,9 @@ importFrom("tools",
 importFrom("zoo",
            "coredata")
 
+importFrom("datetimeutils",
+           "guess_datetime")
+
 importFrom("textutils",
            "trim",
            "here",

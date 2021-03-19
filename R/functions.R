@@ -264,7 +264,7 @@ pkg_build <- function(pkg, parent.dir = ".",
 
     if (!use.crayon)
         green <- red <- identity
-    
+
     if (endsWith(pkg, "/"))
         pkg <- substr(pkg, 1, nchar(pkg) - 1)
 
@@ -453,6 +453,8 @@ short_fn <- function(x, length = 50) {
     bname <- gsub("(.*)[.][^.]*", "\\1", x)
     ext <- gsub(".*[.]([^.]*)", "\\1", x)
 
+    bname <- iconv(bname, from = "UTF-8", to = "ascii", sub = "")
+
     ## make underscore
     chars <- c("[", "]", ".",
                ",", ";", "+",
@@ -470,7 +472,7 @@ short_fn <- function(x, length = 50) {
         bname <- gsub(ch, "_", bname)
 
     ## remove patters/chars
-    chars <- c("^_", "'", "‘", "’")
+    chars <- c("^_", "'")
     for (ch in chars)
         bname <- gsub(ch, "", bname)
 
@@ -901,14 +903,12 @@ old_files <- function(min.age = 365,
                       recursive = FALSE,
                       min.age.monthend = NULL,
                       min.age.yearend = NULL,
-                      min.age.unit = "days",
                       full.names = FALSE) {
 
     files <- dir(path, recursive = recursive,
                  full.names = full.names,
                  pattern = pattern, ignore.case = FALSE)
-    dates <- datetimeutils::guess_datetime(
-                                files, date.only = TRUE, within = TRUE)
+    dates <- guess_datetime(files, date.only = TRUE, within = TRUE)
 
     i <- order(dates)
     files <- files[i]
@@ -922,7 +922,7 @@ old_files <- function(min.age = 365,
         old[i] <- age[i] >= min.age.monthend
     }
     if (!is.null(min.age.yearend)) {
-        by <- format(dates, "%Y-%m")
+        by <- format(dates, "%Y")
         i <- PMwR:::last(dates, by = by, index = TRUE)
         old[i] <- age[i] >= min.age.yearend
     }
