@@ -1,8 +1,8 @@
 Package: esutils
 Type: Package
 Title: esutils
-Version: 0.2-0
-Date: 2021-03-19
+Version: 0.2-2
+Date: 2021-05-02
 Maintainer: Enrico Schumann <es@enricoschumann.net>
 Authors@R: person(given = "Enrico", family = "Schumann",
                   role  = c("aut", "cre"),

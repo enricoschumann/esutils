@@ -250,6 +250,7 @@ pkg_build <- function(pkg, parent.dir = ".",
                       bump.version = FALSE,
                       bump.date = FALSE,
                       resave.data = TRUE,
+                      as.cran = FALSE,
                       show.test.results = TRUE,
                       verbose = TRUE,
                       use.crayon = FALSE) {
@@ -373,7 +374,9 @@ pkg_build <- function(pkg, parent.dir = ".",
         if (verbose)
             message("Running R CMD check ... ", appendLF = FALSE)
 
-        msg1 <- Rcmd(c("check", latest_version(pkg)),
+        msg1 <- Rcmd(c("check",
+                       if (as.cran) "--as-cran",
+                       latest_version(pkg)),
                      stdout = TRUE, stderr = TRUE)
 
         msg <- c(msg, msg1)
@@ -995,4 +998,11 @@ extract_backup <- function(backup.filename,
                       files = files,
                       overwrite = TRUE)
     invisible(ans)
+}
+
+backup_filename <- function(root, UTC = FALSE, ...) {
+    time <- format(Sys.time(), "%Y-%m-%d_%H%M%S",
+           tz = if (UTC) "UTC" else "")
+    node <- Sys.info()["nodename"]
+    paste0(time, "__", node, "___", root)
 }

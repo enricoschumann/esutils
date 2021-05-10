@@ -1,3 +1,11 @@
+2021-05-02  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (backup_filename): add function
+
+2021-04-07  Enrico Schumann  <es@enricoschumann.net>
+
+	* R/functions.R (pkg_build): add argument 'as.cran'
+
 2021-03-19  Enrico Schumann  <es@enricoschumann.net>
 
         * DESCRIPTION (Version): 0.2-0
