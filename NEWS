@@ -1,3 +1,18 @@
+v0.3-0  (2021-??-??; not yet released)
+
+  o pkg_build: new argument "as.cran"
+
+  o add function "backup_filename"
+
+  o clean_ltx: remove *lol files
+
+  o ....
+
+v0.2-0  (2021-03-19)
+
+  o added various new functions; see the ChangeLog
+    for details
+
 v0.1-6  (2016-05-02)
 
   o here: new arguments 'sep' and 'header'. When 'sep'
