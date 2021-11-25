@@ -1,3 +1,7 @@
+2021-11-25  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/repos.R (find_git,fetch_git_info): add functions
+
 2021-10-26  Enrico Schumann  <es@enricoschumann.net>
 
         * R/functions.R (clean_ltx): add *lol files

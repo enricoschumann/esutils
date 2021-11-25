@@ -30,12 +30,12 @@ fetch_git_info <- function(paths, ...) {
         
 
         
-        st <- status(path)
+        st <- git2r::status(path)
         clean[p] <- !(length(st$staged) || length(st$unstaged) || length(st$untracked))
         
         rem <- git2r::remotes(path)
         remotes[p] <- paste(rem, collapse = ";")
-        remote_urls[p] <- paste(remote_url(path, remote = rem), collapse = ";")
+        remote_urls[p] <- paste(git2r::remote_url(path, remote = rem), collapse = ";")
     }
     data.frame(path = paths,
                machine = Sys.info()[["nodename"]],

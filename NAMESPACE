@@ -34,6 +34,8 @@ export(
     "clean_ltx",
     "create_backup",
     "extract_backup",
+    "find_git",
+    "fetch_git_info",
     "flatten",
     "git_bundle_clone",
     "git_bundle_create",
