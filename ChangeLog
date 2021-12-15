@@ -1,3 +1,9 @@
+2021-12-15  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (latest_version): fix regex, to
+        avoid mismatches when one package name contains
+        the name of another, as in <AB> and <ABC>
+
 2021-11-25  Enrico Schumann  <es@enricoschumann.net>
 
         * R/repos.R (find_git,fetch_git_info): add functions

@@ -219,7 +219,7 @@ latest_version <- function(pkg, path = ".", type = "source") {
         ext <- "[.]tar[.]gz"
     else if (type == "binary" || type == "zip")
         ext <- "[.]zip"
-    all_p <- dir(path, pattern = paste0(pkg, ".*", ext))
+    all_p <- dir(path, pattern = paste0(pkg, "_.*", ext))
     all_v <- gsub(paste0(".*_([0-9]+[.][0-9]+-[0-9]+)", ext),
                   "\\1", all_p)
     all_v  <- package_version(all_v)
