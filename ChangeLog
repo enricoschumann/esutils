@@ -1,3 +1,8 @@
+2021-12-20  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (latest_version): accepts versions
+        with separators "." and "-"
+
 2021-12-15  Enrico Schumann  <es@enricoschumann.net>
 
         * R/functions.R (latest_version): fix regex, to

@@ -216,11 +216,11 @@ char2num <- function(s, dec = ",", big.mark = ".") {
 
 latest_version <- function(pkg, path = ".", type = "source") {
     if (type == "source")
-        ext <- "[.]tar[.]gz"
+        ext <- "[.]tar[.]gz$"
     else if (type == "binary" || type == "zip")
-        ext <- "[.]zip"
+        ext <- "[.]zip$"
     all_p <- dir(path, pattern = paste0(pkg, "_.*", ext))
-    all_v <- gsub(paste0(".*_([0-9]+[.][0-9]+-[0-9]+)", ext),
+    all_v <- gsub(paste0(".*_([0-9]+[-.][0-9]+[-.][0-9]+)", ext),
                   "\\1", all_p)
     all_v  <- package_version(all_v)
     all_p[max(all_v) == all_v]
