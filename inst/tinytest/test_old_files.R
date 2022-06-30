@@ -1,5 +1,7 @@
 backup_dir <- file.path(tempdir(),
-                        paste0("esutils_backups_", sample(1e9, 1L)))
+                        paste0("esutils_backups_",
+                               sample(1e4, 1L), "__",
+                               sample(1e4, 1L)))
 dir.create(backup_dir)
 
 d <- seq(Sys.Date()-366*10, Sys.Date(), by = "1 day")
@@ -18,8 +20,8 @@ removed <- file.remove(old_files(path = backup_dir,
                                  min.age.yearend  = 366*5,
                                  full.names = TRUE))
 
+Sys.sleep(0.1)
 pruned <- length(list.files(backup_dir))
-
 expect_true(pruned < n)
 
 removed <- file.remove(old_files(path = backup_dir,

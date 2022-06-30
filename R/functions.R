@@ -852,14 +852,23 @@ old_files <- function(min.age = 365,
     age <- as.numeric(Sys.Date() - dates)
     old <- age >= min.age
 
+    .last <- function(x, by, index = FALSE) {
+        lby <- length(by)
+        rby <- by[lby:1L]
+        if (index)
+            lby - match(unique(by), rby) + 1L
+        else
+            x[lby - match(unique(by), rby) + 1L]
+    }
+
     if (!is.null(min.age.monthend)) {
         by <- format(dates, "%Y-%m")
-        i <- PMwR:::last(dates, by = by, index = TRUE)
+        i <- .last(dates, by = by, index = TRUE)
         old[i] <- age[i] >= min.age.monthend
     }
     if (!is.null(min.age.yearend)) {
         by <- format(dates, "%Y")
-        i <- PMwR:::last(dates, by = by, index = TRUE)
+        i <- .last(dates, by = by, index = TRUE)
         old[i] <- age[i] >= min.age.yearend
     }
     files[ !is.na(old) & old ]

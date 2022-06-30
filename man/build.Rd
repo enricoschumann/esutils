@@ -18,6 +18,7 @@
               bump.version = FALSE,
               bump.date = FALSE,
               resave.data = TRUE,
+              as.cran = FALSE,
               show.test.results = TRUE,
               verbose = TRUE,
               use.crayon = FALSE)
@@ -32,6 +33,9 @@
   }
   \item{type}{
     string: \code{source} or \code{zip}
+  }
+  \item{as.cran}{
+    logical
   }
 }
 \details{
