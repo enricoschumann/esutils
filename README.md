@@ -13,3 +13,10 @@ http://enricoschumann.net. In an R session, just type:
 
     install.packages('esutils',
                      repos = c('http://enricoschumann.net/R', getOption('repos')))
+
+
+## System dependencies
+
+Function 'ss2csv' uses 'ssconvert', which is part of Gnumeric.
+
+Function 'pdf2txt' uses 'pdftotext', which is part of Xpdf.
