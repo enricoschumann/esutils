@@ -1,5 +1,0 @@
----------------[ SYSTEM DEPENDENCIES ]---------------
-
-Function 'ss2csv' uses 'ssconvert', which is part of Gnumeric.
-
-Function 'pdf2txt' uses 'pdftotext', which is part of Xpdf.
