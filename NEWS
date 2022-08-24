@@ -1,9 +1,11 @@
-v0.3-0  (2022-??-??; not yet released)
+v0.3-0  (2022-08-24; not yet released)
 
   o pkg_build: new argument "as.cran"
 
   o add function "backup_filename"
 
+  o add function "path8.3"
+  
   o clean_ltx: remove *lol files
 
   o ....

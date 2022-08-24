@@ -48,6 +48,7 @@ export(
     "matrix_image",
     "nth",
     "old_files",
+    "path8.3",
     "pdf2txt",
     "pkg_build",
     "pkg_clean",
