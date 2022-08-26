@@ -1,6 +1,11 @@
+2022-08-26  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/repos.R (find_git): add argument 'nchar', to
+        exclude too-long path names on Windows
+
 2022-08-24  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/backup.R (path8.3): add function
+        * R/backup.R (path8.3): add function
 
 2022-05-20  Enrico Schumann  <es@enricoschumann.net>
 
@@ -40,7 +45,7 @@
 
 2021-03-18  Enrico Schumann  <es@enricoschumann.net>
 
-        * R/functions.R (short_fn): use 'iconv' to onvert to
+        * R/functions.R (short_fn): use 'iconv' to convert to
         ASCII instead of replacing specific characters
 
         * DESCRIPTION (Suggests): add 'tinytest'

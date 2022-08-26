@@ -1,9 +1,11 @@
-find_git <- function(path = ".", tilde = TRUE, ...) {
+find_git <- function(path = ".", tilde = TRUE, max.char = NA,...) {
 
     f <- dir(path = path,
              include.dirs = TRUE,
              recursive = TRUE, full.names = TRUE,
              all.files = TRUE)
+    if (is.finite(max.char))
+        f <- f[nchar(f) <= max.char]
     f <- f[basename(f) == ".git"]
     f <- f[file.info(f, extra_cols = FALSE)$isdir]
     f <- normalizePath(f)
