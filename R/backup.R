@@ -70,7 +70,7 @@ flatten <- function(dir, out.dir, pattern = NULL) {
 
 path8.3 <- function(path = ".") {
     if (.Platform$OS.type != "windows")
-        returns(path)
+        return(path)
     old.options <- options(useFancyQuotes = FALSE)
     on.exit(options(old.options))
     p <- paste(shQuote(path), collapse = " ")
