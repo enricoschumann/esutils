@@ -1,14 +1,19 @@
-v0.3-0  (2022-08-24; not yet released)
+v0.3-0  (2022-09-03)
 
   o pkg_build: new argument "as.cran"
 
   o add function "backup_filename"
 
   o add function "path8.3"
-  
+
   o clean_ltx: remove *lol files
 
-  o ....
+  o insert: recycle argument "what"
+
+  o for consistency, the first argument of function
+    "fetch_git_info" is now called path
+
+  o various other fixes; see ChangeLog
 
 v0.2-0  (2021-03-19)
 

@@ -17,8 +17,9 @@ find_git <- function(path = ".", tilde = TRUE, max.char = NA,...) {
     f
 }
 
-fetch_git_info <- function(paths, ...) {
+fetch_git_info <- function(path, ...) {
 
+    paths <- path
     clean <- rep(NA, length(paths))
     remotes <- rep(NA_character_, length(paths))
     remote_urls <- rep(NA_character_, length(paths))
