@@ -1,4 +1,9 @@
-v0.3-0  (2022-09-03)
+v0.3.1  (2022-09-06)
+
+  o function "insert" was moved to package "textutils"
+    ( http://enricoschumann.net/R/packages/textutils/ )
+
+v0.3.0  (2022-09-03)
 
   o pkg_build: new argument "as.cran"
 

@@ -41,7 +41,6 @@ export(
     "git_bundle_create",
     "git_bundle_pull",
     "header",
-    "insert",
     "latest_version",
     "make_tex",
     "map01",

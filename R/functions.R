@@ -623,22 +623,6 @@ sw_names <- function(filename, names.only = FALSE) {
         unlist(lapply(opts, `[[`, "label"))
 }
 
-insert <- function(x, what, before.index) {
-    if (is.unsorted(before.index)) {
-        ii <- order(before.index)
-        what <- what[ii]
-        before.index <- before.index[ii]
-    }
-    if (length(what) < length(before.index))
-        what <- rep(what, length(before.index)/length(what))
-    before.index <- before.index +
-        seq(from = 0, to = length(what) - 1)
-    ans <- vector(class(x), length(x) + length(what))
-    ans[ before.index] <- what
-    ans[-before.index] <- x
-    ans
-}
-
 zoo2array <- function(z) {
 
     paste0("[new Date(\"",

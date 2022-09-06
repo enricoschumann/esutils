@@ -1,5 +1,7 @@
 \name{backup}
 \alias{old_files}
+\alias{path8.3}
+\alias{backup_filename}
 \title{
   Tools for Creating Backups
 }
@@ -15,6 +17,8 @@
               min.age.monthend = NULL,
               min.age.yearend = NULL,
               full.names = FALSE)
+    path8.3(path = ".")
+    backup_filename(root, UTC = FALSE, \dots)
 }
 \arguments{
   \item{min.age}{
@@ -32,16 +36,14 @@
   \code{old_files} will look at filenames and then use
   \code{\link[datetimeutils]{guess_datetime}} to extract the date.
 
-  
+
 }
 \value{
-  a character vector
+  for  \code{old_files}, a character vector
 }
 \author{
   Enrico Schumann
 }
-%% \seealso{
-%%   \code{\link{Extract}}
-%% }
 \examples{
+backup_filename("daily_report.pdf")
 }
