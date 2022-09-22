@@ -98,7 +98,7 @@ git_bundle_create <- function(repos, output.filenames,
     invisible(NULL)
 }
 
-git_bundle_pull <- function(bundle, target, branch = "master") {
+git_bundle_pull <- function(bundle, target, branch = "master", ...) {
 
     if (!dir.exists(target))
         stop("'target' does not exist. Maybe clone?")
@@ -107,18 +107,18 @@ git_bundle_pull <- function(bundle, target, branch = "master") {
     on.exit(setwd(current.dir))
 
     setwd(target)
-    system2("git", c("pull", bundle, branch))
+    system2("git", c("pull", bundle, branch), ...)
 }
 
-git_bundle_clone <- function(bundle, dir.name, parent.dir) {
+git_bundle_clone <- function(bundle, dir.name, parent.dir, ...) {
 
     if (dir.exists(file.path(parent.dir, dir.name)))
-        stop("'dir.name' already exists. Maybe pull?")
+        stop("directory ", sQuote(dir.name), " already exists. Maybe pull?")
 
     current.dir <- getwd()
     on.exit(setwd(current.dir))
 
     setwd(parent.dir)
-    system2("git", c("clone", "-b", "master", bundle, dir.name))
+    system2("git", c("clone", "-b", "master", bundle, dir.name), ...)
 }
 

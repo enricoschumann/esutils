@@ -1,3 +1,10 @@
+2022-09-22  Enrico Schumann  <es@enricoschumann.net>
+
+        * DESCRIPTION (Version): 0.3.2
+
+        * R/repos.R (git_bundle_pull, git_bundle_clone):
+        allow arguments to be passed to system2
+
 2022-09-06  Enrico Schumann  <es@enricoschumann.net>
 
         * DESCRIPTION (Version): 0.3.1
