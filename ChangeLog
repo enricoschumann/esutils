@@ -1,3 +1,9 @@
+2022-10-13  Enrico Schumann  <es@enricoschumann.net>
+
+        * DESCRIPTION (Version): 0.3.3
+
+        * R/repos.R (git_bundle_clone): add argument "branch"
+
 2022-09-22  Enrico Schumann  <es@enricoschumann.net>
 
         * DESCRIPTION (Version): 0.3.2

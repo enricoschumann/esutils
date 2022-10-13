@@ -110,7 +110,8 @@ git_bundle_pull <- function(bundle, target, branch = "master", ...) {
     system2("git", c("pull", bundle, branch), ...)
 }
 
-git_bundle_clone <- function(bundle, dir.name, parent.dir, ...) {
+git_bundle_clone <- function(bundle, dir.name, parent.dir,
+                             branch = "master", ...) {
 
     if (dir.exists(file.path(parent.dir, dir.name)))
         stop("directory ", sQuote(dir.name), " already exists. Maybe pull?")
@@ -119,6 +120,6 @@ git_bundle_clone <- function(bundle, dir.name, parent.dir, ...) {
     on.exit(setwd(current.dir))
 
     setwd(parent.dir)
-    system2("git", c("clone", "-b", "master", bundle, dir.name), ...)
+    system2("git", c("clone", "-b", branch, bundle, dir.name), ...)
 }
 
