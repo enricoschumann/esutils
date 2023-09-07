@@ -2,7 +2,7 @@
 
 Various R tools, for instance for finding git repositories
 and doing backups.  Most functions in esutils are at
-some point moved to more appropriate packages.
+some point moved to more appropriate specialized packages.
 
 [ [More] ](http://enricoschumann.net/R/packages/esutils/)
 

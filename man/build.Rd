@@ -22,7 +22,7 @@
               show.test.results = TRUE,
               verbose = TRUE,
               use.crayon = FALSE)
-    latest_version(pkg, path = ".", type = "source")
+    latest_version(pkg, path = ".", type = "source", strict = TRUE)
 }
 \arguments{
   \item{pkg}{
@@ -36,6 +36,9 @@
   }
   \item{as.cran}{
     logical
+  }
+  \item{strict}{
+    logical. See \code{\link{package_version}}.
   }
 }
 \details{

@@ -214,7 +214,8 @@ char2num <- function(s, dec = ",", big.mark = ".") {
     as.numeric(sub(dec, Sys.localeconv()[["decimal_point"]], s, fixed = TRUE))
 }
 
-latest_version <- function(pkg, path = ".", type = "source") {
+latest_version <-
+function(pkg, path = ".", type = "source", strict = TRUE) {
     if (type == "source")
         ext <- "[.]tar[.]gz$"
     else if (type == "binary" || type == "zip")
@@ -222,7 +223,7 @@ latest_version <- function(pkg, path = ".", type = "source") {
     all_p <- dir(path, pattern = paste0(pkg, "_.*", ext))
     all_v <- gsub(paste0(".*_([0-9]+[-.][0-9]+[-.][0-9]+)", ext),
                   "\\1", all_p)
-    all_v  <- package_version(all_v)
+    all_v  <- package_version(all_v, strict = strict)
     all_p[max(all_v) == all_v]
 }
 
