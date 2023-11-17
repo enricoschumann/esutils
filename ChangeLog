@@ -1,3 +1,10 @@
+2023-11-17  Enrico Schumann  <es@enricoschumann.net>
+
+        * DESCRIPTION (Version): 0.3.5
+
+        * R/functions.R (pkg_build): 'bump.version' supports
+        x.y.z and x.y-z
+
 2023-10-16  Enrico Schumann  <es@enricoschumann.net>
 
         * R/functions.R (latest_version): simplify regexp
