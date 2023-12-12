@@ -1,6 +1,15 @@
 2023-12-12  Enrico Schumann  <es@enricoschumann.net>
 
-	* R/functions.R (ddf): add function
+	* DESCRIPTION (Version): 0.3.6
+
+        * R/functions.R (ddf): add function
+
+2023-11-17  Enrico Schumann  <es@enricoschumann.net>
+
+        * DESCRIPTION (Version): 0.3.5
+
+        * R/functions.R (pkg_build): 'bump.version' supports
+        x.y.z and x.y-z
 
 2023-10-16  Enrico Schumann  <es@enricoschumann.net>
 

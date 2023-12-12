@@ -274,15 +274,14 @@ pkg_build <- function(pkg, parent.dir = ".",
         D_file <- file.path(pkg, "DESCRIPTION")
         D <- readLines(D_file)
         i <- grep("^Version: ", D)
-        v1 <- as.numeric(gsub(".*-(.*)", "\\1", D[i])) + 1
-        D[i] <- gsub("(.*-).*", paste0("\\1", v1), D[i])
+        v1 <- as.numeric(gsub(".*[-.](.*)", "\\1", D[i])) + 1
+        D[i] <- gsub("(.*[.-]).*", paste0("\\1", v1), D[i])
         i <- grep("^Date: ", D)
         D[i] <- paste("Date:", Sys.Date())
         writeLines(D, D_file)
     }
 
     if (bump.date) {
-        ## TODO allow major/minor/patch
         D_file <- file.path(pkg, "DESCRIPTION")
         D <- readLines(D_file)
         i <- grep("^Date: ", D)
