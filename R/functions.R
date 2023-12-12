@@ -864,3 +864,75 @@ cache_object <- function(object, filename, path, binary = TRUE,
                          use.global.env = FALSE) {
 
 }
+
+ddf <-
+function(new, old = NULL,
+                   by = NULL,
+                   ignore.case = FALSE,
+                   ignore.ws = FALSE,
+                   ignore.headers = FALSE,
+                   ignore = NULL,
+                   ignore.rows = NULL,
+                   ... ) {
+
+
+    if (!ignore.headers &&
+            length(colnames(old)) == length(colnames(new)) &&
+        all(  sort(colnames(old)) ==   sort(colnames(new)))) {
+
+        if (!all(colnames(old) == colnames(new))) {
+            if (verbose)
+                message("orders of columns differ")
+            old <- old[, colnames(new)]
+        }
+    }
+
+
+    key.old <- if (is.character(by))
+                  do.call(paste, old[, by, drop = FALSE])
+              else if (identical(by, 0))
+                  row.names(old)
+              else
+                  do.call(paste, old)
+
+    key.new <- if (is.character(by))
+                  do.call(paste, new[, by, drop = FALSE])
+              else if (identical(by, 0))
+                  row.names(new)
+              else
+                  do.call(paste, new)
+
+    ## check for changes
+
+    m <- match(key.new, key.old, nomatch = 0L)
+    new. <- new[m > 0, ]
+    old. <- old[m, ]
+    key.new. <- key.new[m > 0]
+
+    digest.new <- apply(new., 1,
+                        function(x) paste(x, collapse = "--"))
+    digest.old <- apply(old., 1,
+                        function(x) paste(x, collapse = "--"))
+
+    changes <- which(digest.new != digest.old)
+
+    ans.changes <- list()
+    for (ch in changes) {
+        same <- (is.na(new.[ch, ])  &  is.na(old.[ch, ])) |
+                 new.[ch, ] == old.[ch, ]
+        ch.col <- colnames(new)[!same]
+        o.n <- cbind(old = t(old.[ch, ch.col]),
+                     new = t(new.[ch, ch.col]))
+        row.names(o.n) <- ch.col
+        colnames (o.n) <- c("old", "new")
+        ans.changes[[as.character(key.new.[ch])]] <- o.n
+    }
+
+    ans <- list(
+        added   = new[!key.new %in% key.old, ],
+        removed = old[!key.old %in% key.new, ],
+        changed = ans.changes)
+    attr(ans, "new.key") <- key.new
+    attr(ans, "old.key") <- key.old
+    ans
+}
