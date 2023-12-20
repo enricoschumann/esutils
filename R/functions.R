@@ -866,13 +866,15 @@ cache_object <- function(object, filename, path, binary = TRUE,
 
 ddf <-
 function(new, old = NULL,
-                   by = NULL,
-                   ignore.case = FALSE,
-                   ignore.ws = FALSE,
-                   ignore.headers = FALSE,
-                   ignore = NULL,
-                   ignore.rows = NULL,
-                   ... ) {
+         by = NULL,
+         ignore.case = FALSE,
+         ignore.ws = FALSE,
+         ignore.headers = FALSE,
+         ignore = NULL,
+         ignore.rows = NULL,
+         ignore.columns = NULL,
+         only.columns = NULL,
+         ... ) {
 
 
     if (!ignore.headers &&
@@ -904,22 +906,33 @@ function(new, old = NULL,
     ## check for changes
 
     m <- match(key.new, key.old, nomatch = 0L)
+
     new. <- new[m > 0, ]
     old. <- old[m, ]
     key.new. <- key.new[m > 0]
 
-    digest.new <- apply(new., 1,
+
+    ch.cols <- only.columns
+
+    if (is.null(only.columns))
+        ch.cols <- setdiff(colnames(new.), ignore.columns)
+    digest.new <- apply(new.[, ch.cols, drop = FALSE],
+                        1,
                         function(x) paste(x, collapse = "--"))
-    digest.old <- apply(old., 1,
+
+    if (is.null(only.columns))
+        ch.cols <- setdiff(colnames(old.), ignore.columns)
+    digest.old <- apply(old.[, ch.cols, drop = FALSE],
+                        1,
                         function(x) paste(x, collapse = "--"))
 
     changes <- which(digest.new != digest.old)
 
     ans.changes <- list()
     for (ch in changes) {
-        same <- (is.na(new.[ch, ])  &  is.na(old.[ch, ])) |
-                 new.[ch, ] == old.[ch, ]
-        ch.col <- colnames(new)[!same]
+        same <- (is.na(new.[ch, ch.cols])  &  is.na(old.[ch, ch.cols])) |
+                 new.[ch, ch.cols] == old.[ch, ch.cols]
+        ch.col <- setdiff(ch.cols[!same], ignore.columns)
         o.n <- cbind(old = t(old.[ch, ch.col]),
                      new = t(new.[ch, ch.col]))
         row.names(o.n) <- ch.col
