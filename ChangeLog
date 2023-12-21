@@ -1,3 +1,8 @@
+2023-12-21  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (ddf): remove 'ddf', and move the the
+        function to separate package
+
 2023-12-20  Enrico Schumann  <es@enricoschumann.net>
 
         * R/functions.R (ddf): add arguments "ignore.columns"
