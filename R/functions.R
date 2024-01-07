@@ -863,4 +863,3 @@ cache_object <- function(object, filename, path, binary = TRUE,
                          use.global.env = FALSE) {
 
 }
-
