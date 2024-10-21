@@ -1,3 +1,7 @@
+2024-10-21  Enrico Schumann  <es@enricoschumann.net>
+
+        * R/functions.R (clean_ltx): add "fls" to extensions
+
 2023-12-29  Enrico Schumann  <es@enricoschumann.net>
 
         * R/functions.R (ddf): remove 'ddf', and move function
