@@ -2,7 +2,7 @@ Package: esutils
 Type: Package
 Title: esutils
 Version: 0.3.7
-Date: 2024-10-21
+Date: 2025-03-20
 Maintainer: Enrico Schumann <es@enricoschumann.net>
 Authors@R: person(given = "Enrico", family = "Schumann",
                   role  = c("aut", "cre"),
@@ -14,5 +14,5 @@ SystemRequirements: ssconvert (Gnumeric), pdftotext (Xpdf)
 Imports: crayon, datetimeutils, git2r, graphics,
          textutils, tools, utils, zip, zoo
 Suggests: tinytest, weaver
-URL: http://enricoschumann.net/esutils/ ,
+URL: https://enricoschumann.net/esutils/ ,
      https://git.sr.ht/~enricoschumann/esutils

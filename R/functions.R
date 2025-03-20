@@ -734,7 +734,9 @@ function(rm = FALSE,
                       "[.]toc$",
                       "[.]upa$",
                       "[.]upb$",
-                      "[.]xmpi$"),
+                      "[.]xmpi$",
+                      "[.]bbl-SAVE-ERROR$",
+                      "[.]bcf-SAVE-ERROR$"),
          rm.auto = TRUE,
          ignore.case = FALSE) {
 
